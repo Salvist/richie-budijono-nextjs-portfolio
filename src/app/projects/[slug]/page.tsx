@@ -5,6 +5,13 @@ import NavigateBeforeIcon from "@mui/icons-material/NavigateBefore";
 import Image from "next/image";
 import MDXContent from "@/components/mdx_component";
 import { formatDate } from "@/lib/utils";
+import getProjects from "@/lib/project/getProjects";
+
+export async function generateStaticParams() {
+  const projects = await getProjects();
+  const slugs = projects.map((project) => ({ slug: project.slug }));
+  return slugs;
+}
 
 export default async function ProjectPage({
   params,
