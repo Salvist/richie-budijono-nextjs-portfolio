@@ -3,9 +3,16 @@ import Image from "next/image";
 export default function AboutMePage() {
   return (
     <section className="mt-28">
-      <div className=" container max-w-3xl">
-        <div className="relative w-full h-96">
+      <div className="container max-w-3xl">
+        <p>
+          For business inquiry email me at {" "}
+          <span className="bg-slate-200 dark:bg-slate-700 px-2 py-1 rounded">
+            richiechandra47@gmail.com
+          </span>
+        </p>
+        <div className="relative w-full h-96 mt-8">
           <Image
+          className="rounded-lg"
             src="/images/richie_landscape.jpg"
             alt="Richie looking behind on the EDGE NYC around 6AM in the morning"
             layout="fill"
@@ -15,8 +22,8 @@ export default function AboutMePage() {
         <h2 className="title my-4">About me</h2>
         <div className="grid grid-cols-1 gap-y-4">
           <p>
-            Hello again, if you didn't catch my name in the front page, well, my
-            name is Richie.
+            Hello again, if you didn&#39;t catch my name in the front page, well,
+            my name is Richie.
           </p>
           <p>
             I am a software engineer and currently having a passion in web and
@@ -30,12 +37,12 @@ export default function AboutMePage() {
             to create a mobile app in an education field--helping kids get a
             better placement in their bilingual English and Spanish. The mobile
             app was released within 3 months to App Store (iOS) and another 3
-            months to Google Play Store (Android) which I didn't think that I
+            months to Google Play Store (Android) which I didn&#39t think that I
             was capable but I did.
           </p>
           <p>
             Then another project comes in, to create a data platform for
-            teachers to be able to manage their students' data along with
+            teachers to be able to manage their students&#39; data along with
             analytics and automatc reporting so that the teachers can send a PDF
             report to individual parents. I had to learn about Vertex AI (which
             is now rebranded as Gemini I believe), optimizing speech to text AI,
