@@ -40,6 +40,8 @@ export async function getPosts(limit?: number): Promise<PostMetadata[]> {
         return -1;
       }
     });
+
+  if(posts[0].slug === '.keep') return [];
   if (limit) {
     return posts.slice(0, limit);
   }
