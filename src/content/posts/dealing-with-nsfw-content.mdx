@@ -1,0 +1,65 @@
+---
+    title: Dealing with NSFW content
+    summary: My experience on dealing with NSFW content on Google Play Store
+    image: /images/projects/snap_ai_banner.png
+    author: "Richie Budijono"
+    publishedAt: "2024-10-05"
+---
+
+
+Previously, I had build a mobile app for Snap AI and it works well. However, after publishing to Google Play Store, the app got suspended due to the
+stable diffusion sometimes generate an NSWF content. While the stable diffusion provider does provide an option to block such explicit content, it still 
+slips through their system.
+
+To tackle this issue, my initial thought was to block certain words. Before the user can send the prompt, it will check whether the prompt contains a profanity or not. 
+This was a good idea, so I forked the <a href="https://www.npmjs.com/package/bad-words" target="_blank" rel="noopener">bad-words</a> and turn it into a Dart package locally. 
+Then I submitted the update to Google Play Store and it was all good. 
+![Prompt contains profanity](/images/projects/snap-ai-web/profanity-example.png)
+
+After a couple of days, Google Play Store came back to me and said that the stable diffusion still generates NSFW content. My inital solution was good but not great enough and the issue 
+with blocking certain words is that, you have to list all of the bad words and people will find ways to type the same word in many ways (e.g. house, h0us3, a 4 walls with a roof; you get the idea).
+
+I found another service within Google Cloud Platform which is called <a href="https://cloud.google.com/vision?hl=en" target="_blank" rel="noopener">Vision AI</a> and using it is fairly simple.
+
+```
+const bucketName = 'your-bucket-name';
+const { filePath } = request.query;
+if(!storageFilePath){
+    response.status(400).send('Missing query "filePath"');
+    return;
+}
+
+const imageAnnotator = new ImageAnnotatorClient();
+const storageFilePath = `gs://${bucketName)/${filePath}`;
+
+const [detectionResult] = await imageAnnotator.safeSearchDetection(
+    storageFilePath
+);
+
+const detections = detectionResult.safeSearchAnnotation;
+const isNSFW = detections?.adult?.valueOf ?? 0 > 3 ? true : false;
+
+const result = {
+    statusCode: 200,
+    message: "SUCCESS",
+    data: {
+        isNSFW: isNSFW,
+        raw: {
+            adult: detections?.adult,
+            spoof: detections?.spoof,
+            medical: detections?.medical,
+            violence: detections?.violence,
+            racy: detections?.racy,
+        },
+    },
+};
+response.status(200).send(result);
+```
+
+After testing the function above with the generated NSFW content that slips through, Vision AI was able to detect that the generated image is indeed NSFW. 
+
+Before I was able to implement it on Snap AI system, the app got suspended and appealing it seems to be out of luck since it has been over a week as of this post.
+
+Not to be discouraged and while I am still having fun with this project, I made the app into a web app instead which you can check here: <a href="https://snap-ai-68297.web.app/" target="_blank" rel="noopener">Snap AI Web App</a>
+
+It is free and you get 20 tokens that is refreshed every Monday!
