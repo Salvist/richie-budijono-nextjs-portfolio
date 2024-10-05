@@ -26,8 +26,10 @@ export default function Skills() {
           <ul className="list-disc ml-8">
             <li>Flutter</li>
             <li>Next.js (React)</li>
+            <li>React Native</li>
             <li>HTML</li>
             <li>Jetpack Compose</li>
+            <li>SwiftUI</li>
             <li>Bubble.io</li>
           </ul>
         </div>
@@ -38,8 +40,20 @@ export default function Skills() {
             <li>Google Cloud Platform</li>
             <li>Realm (MongoDB)</li>
             <li>AWS Amplify</li>
+            <li>GraphQL (Apollo)</li>
+            <li>Supabase</li>
           </ul>
         </div>
+      </div>
+      <div className="mt-4">
+        <p className="text-lg font-bold">Others</p>
+        <ul className="list-disc ml-8">
+          <li>Android Studio</li>
+          <li>VSCode</li>
+          <li>Salesforce</li>
+          <li>Insomnia (REST API)</li>
+          <li>FlutterFlow</li>
+        </ul>
       </div>
     </section>
   );
