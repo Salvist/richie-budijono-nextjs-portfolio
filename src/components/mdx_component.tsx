@@ -1,5 +1,6 @@
 import { MDXRemote, MDXRemoteProps } from "next-mdx-remote/rsc";
 import { highlight } from "sugar-high";
+import GithubLogo from "./github_logo";
 
 function Code({ children, ...props }: any) {
   let codeHTML = highlight(children);
@@ -8,6 +9,7 @@ function Code({ children, ...props }: any) {
 
 const components = {
   code: Code,
+  GithubLogo
 };
 
 export default function MDXContent(
