@@ -24,7 +24,7 @@ export default function ExperienceDevPage() {
   const blastExperience: ExperienceData = {
     companyName: "BLAST",
     roleName: "Full-stack Engineer",
-    duration: "January 2021 - Present",
+    duration: "November 2021 - Present",
     logoPath: "/images/logos/blast_logo.png",
     logoAlt: "BLAST Logo",
     achievements: [
