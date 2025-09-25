@@ -1,5 +1,11 @@
 import type { Metadata } from "next";
-import { Inter, Poppins } from "next/font/google";
+import {
+  Inter,
+  Poppins,
+  Montserrat,
+  Bitter,
+  Source_Sans_3,
+} from "next/font/google";
 import "./globals.css";
 import Providers from "@/components/providers";
 import Header from "@/components/header";
@@ -11,6 +17,17 @@ const poppins = Poppins({
   weight: "400",
   subsets: ["latin"],
 });
+const montserrat = Montserrat({
+  weight: ["400", "700"],
+  subsets: ["latin"],
+});
+
+const sourceSansPro = Source_Sans_3({
+  weight: ["400", "700"],
+  subsets: ["latin"],
+});
+
+export { montserrat, sourceSansPro };
 
 export const metadata: Metadata = {
   title: "Richie Budijono",

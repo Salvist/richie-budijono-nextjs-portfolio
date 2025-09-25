@@ -16,4 +16,8 @@ export const navItems: NavItem[] = [
     name: "About me",
     path: "/about_me",
   },
+  {
+    name: "Experience",
+    path: "/experience_dev",
+  },
 ];
