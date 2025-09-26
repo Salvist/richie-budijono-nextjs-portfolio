@@ -158,9 +158,9 @@ export default function ExperiencePage() {
           <h2 className="text-xl font-semibold mb-2">Current Focus</h2>
           <p className="text-slate-700 dark:text-slate-300">
             I continue to stay up-to-date with the latest technology trends and
-            enjoy building interactive applications that catch people's
+            enjoy building interactive applications that catch people&apos;s
             attention. My passion lies in creating meaningful software solutions
-            that make a difference in people's lives.
+            that make a difference in people&apos;s lives.
           </p>
         </div>
       </div>

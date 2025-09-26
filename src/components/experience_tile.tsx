@@ -1,6 +1,6 @@
 import Image from "next/image";
 import Link from "next/link";
-import { montserrat, sourceSansPro } from "@/app/layout";
+import { montserrat, sourceSansPro } from "@/lib/fonts";
 
 // Link icon components
 const AppStoreIcon = () => (

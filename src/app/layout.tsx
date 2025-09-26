@@ -27,8 +27,6 @@ const sourceSansPro = Source_Sans_3({
   subsets: ["latin"],
 });
 
-export { montserrat, sourceSansPro };
-
 export const metadata: Metadata = {
   title: "Richie Budijono",
   description: "A portfolio and life journey of Richie Budijono",
