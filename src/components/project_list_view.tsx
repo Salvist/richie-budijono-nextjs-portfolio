@@ -16,14 +16,14 @@ export default function ProjectListView({
             <Link href={`/projects/${project.slug}`}>
               <SlidingTile>
                 <div className="flex flex-col justify-between gap-y-1 sm:flex-row">
-                  <div>
+                  <div className="grow">
                     <p className="text-lg font-semibold">{project.title}</p>
                     <p className="mt-1 line-clamp-2 text-sm font-light text-muted-foreground">
                       {project.summary}
                     </p>
                   </div>
                   {project.publishedAt && (
-                    <p className="mt-1 text-sm font-light">
+                    <p className="mt-1 text-sm w-40 text-right font-light">
                       {formatDate(project.publishedAt)}
                     </p>
                   )}
