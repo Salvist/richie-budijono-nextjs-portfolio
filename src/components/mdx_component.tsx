@@ -14,9 +14,7 @@ const components = {
   NextImage
 };
 
-export default function MDXContent(
-  props: JSX.IntrinsicAttributes & MDXRemoteProps
-) {
+export default function MDXContent(props: MDXRemoteProps) {
   return (
     <MDXRemote
       {...props}
