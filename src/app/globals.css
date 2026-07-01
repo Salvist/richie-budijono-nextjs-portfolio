@@ -101,6 +101,8 @@
   .delay-2 { animation-delay: 200ms; }
   .delay-3 { animation-delay: 300ms; }
   .delay-4 { animation-delay: 400ms; }
+  .reveal-on-scroll { opacity: 0; transform: translateY(14px); }
+  .reveal-on-scroll.is-visible { animation: fade-up 700ms cubic-bezier(.22,1,.36,1) both; }
 }
 
 @keyframes fade-up {

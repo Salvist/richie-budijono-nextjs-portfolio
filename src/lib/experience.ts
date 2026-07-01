@@ -52,8 +52,8 @@ export const experiences: ExperienceEntry[] = [
       "Developed and released TrackU, a personalized finance app with receipt and statement scanning.",
     ],
     links: [
-      { label: "Daily Manna on Google Play", url: "https://play.google.com/store/apps/details?id=com.lonedreamstudio.daily_manna" },
-      { label: "TrackU on Google Play", url: "https://play.google.com/store/apps/details?id=com.lonedreamstudio.tracku" },
+      { label: "Daily Manna", url: "https://mannahabit.com" },
+      { label: "TrackU", url: "https://tracku.app" },
     ],
   },
   {

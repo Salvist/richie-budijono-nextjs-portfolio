@@ -1,6 +1,7 @@
 import Image from "next/image";
 import { Fragment } from "react";
 import { ArrowUpRight } from "./icons";
+import RevealOnScroll from "./reveal_on_scroll";
 import { ExperienceEntry, formatExperienceLength, formatExperienceRange } from "@/lib/experience";
 import { cn } from "@/lib/utils";
 
@@ -8,7 +9,7 @@ export default function ExperienceTimeline({ experiences }: { experiences: Exper
   const gridVars = { "--timeline-rows": experiences.length } as React.CSSProperties;
 
   return (
-    <div className="grid border-t border-border sm:grid-cols-[8rem_2rem_1fr] sm:gap-x-8" style={gridVars}>
+    <div className="grid sm:ml-8 sm:grid-cols-[10rem_2rem_1fr] lg:ml-16" style={gridVars}>
       {experiences.length > 1 && (
         <div
           aria-hidden
@@ -21,14 +22,16 @@ export default function ExperienceTimeline({ experiences }: { experiences: Exper
         const length = formatExperienceLength(experience.startDate, experience.endDate);
         const isCurrent = !experience.endDate;
         const rowVar = { "--timeline-row": index + 1 } as React.CSSProperties;
+        const delay = Math.min(index * 100, 400);
 
         return (
           <Fragment key={experience.company}>
-            <div
+            <RevealOnScroll
+              delay={delay}
               style={rowVar}
-              className="flex items-center gap-2 border-b border-border py-10 sm:block sm:[grid-column:1] sm:[grid-row:var(--timeline-row)]"
+              className="flex items-center gap-2 py-10 sm:flex sm:flex-col sm:items-end sm:text-right sm:[grid-column:1] sm:[grid-row:var(--timeline-row)]"
             >
-              <p className="text-sm font-medium text-muted-foreground">{range}</p>
+              <p className="text-sm font-medium text-muted-foreground sm:whitespace-nowrap">{range}</p>
               <p className="mt-1 text-xs text-muted-foreground/70">{length}</p>
               {isCurrent && (
                 <span className="inline-flex items-center gap-1.5 text-xs font-medium text-accent sm:mt-2">
@@ -36,18 +39,20 @@ export default function ExperienceTimeline({ experiences }: { experiences: Exper
                   Current
                 </span>
               )}
-            </div>
+            </RevealOnScroll>
 
-            <div
+            <RevealOnScroll
+              delay={delay}
               style={rowVar}
               className="hidden border-border py-10 sm:flex sm:justify-center sm:[grid-column:2] sm:[grid-row:var(--timeline-row)]"
             >
               <span className="relative z-10 mt-1 size-3 shrink-0 rounded-full border-2 border-accent bg-background" />
-            </div>
+            </RevealOnScroll>
 
-            <div
+            <RevealOnScroll
+              delay={delay}
               style={rowVar}
-              className="border-b border-border py-10 sm:[grid-column:3] sm:[grid-row:var(--timeline-row)]"
+              className="py-9 sm:[grid-column:3] sm:[grid-row:var(--timeline-row)]"
             >
               <div className="flex flex-wrap items-center gap-4">
                 {experience.logo && (
@@ -81,7 +86,7 @@ export default function ExperienceTimeline({ experiences }: { experiences: Exper
                   ))}
                 </div>
               )}
-            </div>
+            </RevealOnScroll>
           </Fragment>
         );
       })}
