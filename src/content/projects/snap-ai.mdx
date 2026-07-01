@@ -1,21 +1,38 @@
 ---
-    title: Snap AI
-    summary: A mobile app with Stable Diffusion
-    image: /images/projects/snap_ai_banner.png
-    author: "Richie Budijono"
-    publishedAt: "2024-08-29"
+title: Snap AI
+summary: An AI image product spanning mobile and web, with the safety and cloud workflows required to ship responsibly.
+coverImage: /images/projects/snap_ai_banner.png
+author: Richie Budijono
+publishedAt: "2024-08-29"
+featured: true
+client: Independent product
+role: Product designer and full-stack engineer
+period: "2024"
+services: [Mobile and web development, AI integration, Cloud architecture]
+technologies: [Flutter, Firebase, Google Cloud Vision, Stable Diffusion]
+visualStyle: image
+links:
+  - { label: View the web app, url: "https://snap-ai-68297.web.app/" }
 ---
 
-Snap AI is a mobile app that uses Stable Diffusion to turn prompts into ideas.
+## Context
 
-[![Snap AI](/images/get_it_on_google_play.png)](https://play.google.com/store/apps/details?id=com.lonedreamdstudio.snap_ai)
+Snap AI was an independent experiment in making generative image models approachable on mobile and web. Building the interface was only one part of the work: the product also needed authentication, usage limits, storage, asynchronous generation, and content-safety safeguards.
 
-## Current Features
-- Text to Image: Turn prompts into image
-- Image to Image: Turn the given image with prompts into another image
+## Product scope
 
-## Tech Stack:
-- **Flutter**: Used for the mobile app front-end framework.
-- **Firebase**: Used for the back-end (Authentication, Firestore, Storage, Cloud Functions, Hosting).
-- **NextJS**: Currently used only for user deletion to fulfills user policy. Will be developed in the future into a full landing website for the app.
-- **ModelsLab**: A stable diffusion provider.
+- Generate images from natural-language prompts.
+- Transform an existing image using a new prompt.
+- Keep generation history tied to authenticated users.
+- Coordinate model requests, cloud storage, and usage limits through Firebase.
+
+## The difficult part
+
+After the mobile release, generated content exposed the limits of simple word filtering. I investigated a layered moderation approach using Google Cloud Vision safe-search analysis on generated outputs. The work became a useful lesson in treating AI safety as a system responsibility, not a checkbox on the model request.
+
+## Technical decisions
+
+- **Flutter** for the mobile and web product surfaces.
+- **Firebase** for authentication, data, storage, serverless functions, and hosting.
+- **Stable Diffusion provider APIs** for image generation.
+- **Google Cloud Vision** for output-level safety analysis.

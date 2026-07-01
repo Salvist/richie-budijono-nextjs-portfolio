@@ -1,52 +1,52 @@
 import type { Metadata } from "next";
-import {
-  Inter,
-  Poppins,
-  Montserrat,
-  Bitter,
-  Source_Sans_3,
-} from "next/font/google";
+import { Bitter, Inter, JetBrains_Mono } from "next/font/google";
 import "./globals.css";
 import Providers from "@/components/providers";
 import Header from "@/components/header";
 import Footer from "@/components/footer";
-import { cn } from "@/lib/utils";
+import { siteConfig } from "@/lib/site";
 
-const inter = Inter({ subsets: ["latin"] });
-const poppins = Poppins({
-  weight: "400",
-  subsets: ["latin"],
-});
-const montserrat = Montserrat({
-  weight: ["400", "700"],
-  subsets: ["latin"],
-});
-
-const sourceSansPro = Source_Sans_3({
-  weight: ["400", "700"],
-  subsets: ["latin"],
-});
+const sans = Inter({ subsets: ["latin"], variable: "--font-sans" });
+const serif = Bitter({ subsets: ["latin"], variable: "--font-serif" });
+const mono = JetBrains_Mono({ subsets: ["latin"], variable: "--font-mono" });
 
 export const metadata: Metadata = {
-  title: "Richie Budijono",
-  description: "A portfolio and life journey of Richie Budijono",
+  metadataBase: new URL(siteConfig.url),
+  title: { default: siteConfig.title, template: `%s — ${siteConfig.name}` },
+  description: siteConfig.description,
+  alternates: { canonical: "/" },
+  openGraph: {
+    type: "website",
+    locale: "en_US",
+    url: siteConfig.url,
+    siteName: siteConfig.name,
+    title: siteConfig.title,
+    description: siteConfig.description,
+  },
+  twitter: { card: "summary_large_image", title: siteConfig.title, description: siteConfig.description },
 };
 
-export default function RootLayout({
-  children,
-}: Readonly<{
-  children: React.ReactNode;
-}>) {
+export default function RootLayout({ children }: Readonly<{ children: React.ReactNode }>) {
+  const structuredData = {
+    "@context": "https://schema.org",
+    "@type": ["Person", "ProfessionalService"],
+    name: siteConfig.name,
+    url: siteConfig.url,
+    email: siteConfig.email,
+    sameAs: [siteConfig.linkedin, siteConfig.github],
+    knowsAbout: ["Web development", "Mobile app development", "Product engineering", "Flutter", "Next.js"],
+  };
+
   return (
-    <html lang="en" suppressHydrationWarning>
-      <body
-        className={`flex min-h-screen flex-col antialiased ${poppins.className}`}
-      >
+    <html lang="en" suppressHydrationWarning className={`${sans.variable} ${serif.variable} ${mono.variable}`}>
+      <body className="flex min-h-screen flex-col font-sans">
         <Providers>
+          <a href="#main-content" className="sr-only z-[100] bg-background px-4 py-3 focus:not-sr-only focus:fixed focus:left-4 focus:top-4">Skip to content</a>
           <Header />
-          <main className="grow">{children}</main>
+          <main id="main-content" className="grow">{children}</main>
           <Footer />
         </Providers>
+        <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(structuredData).replace(/</g, "\\u003c") }} />
       </body>
     </html>
   );

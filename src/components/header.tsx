@@ -1,51 +1,69 @@
 "use client";
 
-import { navItems } from "@/lib/nav_item";
 import Link from "next/link";
-import ThemeToggle from "./ThemeToggle";
-import SlidingTile from "./animations/sliding_background";
-
-import CloseIcon from "@mui/icons-material/Close";
 import { useState } from "react";
-import { Button } from "./ui/button";
-
-import MenuIcon from "@mui/icons-material/Menu";
+import ThemeToggle from "./ThemeToggle";
+import { ArrowUpRight, Close, Menu } from "./icons";
+import { navigation, siteConfig } from "@/lib/site";
+import { cn } from "@/lib/utils";
 
 export default function Header() {
-  const [isOpen, setIsOpen] = useState(false); // To control menu state
+  const [isOpen, setIsOpen] = useState(false);
 
   return (
-    <header className="fixed inset-x-0 top-0 z-50 bg-background/75 py-4 ">
-      <nav className="container flex max-w-3xl items-center justify-between">
-        <Link href="/" onClick={() => setIsOpen(false)}>
-          <SlidingTile>Richie Budijono</SlidingTile>
+    <header className="fixed inset-x-0 top-0 z-50 border-b border-border/70 bg-background/85 backdrop-blur-xl">
+      <nav className="page-shell flex h-16 items-center justify-between" aria-label="Primary navigation">
+        <Link href="/" className="font-serif text-xl font-semibold tracking-[-0.025em] transition-opacity hover:opacity-65">
+          {siteConfig.name}
         </Link>
-        <div className="md:hidden flex justify-center">
+
+        <div className="hidden items-center gap-7 md:flex">
+          {navigation.map((item) => (
+            <Link key={item.name} href={item.href} className="nav-link">
+              {item.name}
+            </Link>
+          ))}
           <ThemeToggle />
-          <Button size="sm" variant="ghost" onClick={() => setIsOpen(!isOpen)}>
-            {isOpen ? <CloseIcon /> : <MenuIcon />}
-          </Button>
+          <a href={siteConfig.mailto} className="button button-primary">
+            Contact Me <ArrowUpRight className="size-4" />
+          </a>
         </div>
 
-        <ul
-          className={`${
-            isOpen ? "block bg-background" : "hidden"
-          }  md:gap-6 text-sm font-light absolute top-16 left-0 px-8 w-full  md:flex md:items-center md:bg-transparent md:p-0 md:w-auto md:static`}
-        >
-          {navItems.map(function ({ name, path }) {
-            return (
-              <li key={path} className="mb-2 md:mb-0">
-                <Link href={path} onClick={() => setIsOpen(false)}>
-                  <SlidingTile>{name}</SlidingTile>
-                </Link>
-              </li>
-            );
-          })}
-        </ul>
-        <div className="hidden md:block">
+        <div className="flex items-center gap-2 md:hidden">
           <ThemeToggle />
+          <button
+            type="button"
+            className="icon-button"
+            aria-expanded={isOpen}
+            aria-controls="mobile-menu"
+            aria-label={isOpen ? "Close navigation" : "Open navigation"}
+            onClick={() => setIsOpen((value) => !value)}
+          >
+            {isOpen ? <Close className="size-5" /> : <Menu className="size-5" />}
+          </button>
         </div>
       </nav>
+
+      <div
+        id="mobile-menu"
+        className={cn(
+          "page-shell grid overflow-hidden transition-[grid-template-rows,opacity] duration-300 md:hidden",
+          isOpen ? "grid-rows-[1fr] pb-6 opacity-100" : "grid-rows-[0fr] opacity-0",
+        )}
+      >
+        <div className="overflow-hidden">
+          <div className="flex flex-col gap-1 border-t border-border pt-4">
+            {navigation.map((item) => (
+              <Link key={item.name} href={item.href} onClick={() => setIsOpen(false)} className="rounded-lg px-3 py-3 text-lg font-medium hover:bg-muted">
+                {item.name}
+              </Link>
+            ))}
+            <a href={siteConfig.mailto} className="button button-primary mt-3">
+              Contact Me <ArrowUpRight className="size-4" />
+            </a>
+          </div>
+        </div>
+      </div>
     </header>
   );
 }

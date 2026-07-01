@@ -1,10 +1,10 @@
 import path from "path";
-import { Post } from "../posts";
+import { Project } from "./project";
 import { rootDirectory } from "./project";
 import fs from "fs/promises";
 import matter from "gray-matter";
 
-export default async function getProject(slug: string): Promise<Post | null> {
+export default async function getProject(slug: string): Promise<Project | null> {
   try {
     const filePath = path.join(rootDirectory, `${slug}.mdx`);
     const fileContents = await fs.readFile(filePath, { encoding: "utf-8" });

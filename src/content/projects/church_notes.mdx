@@ -1,32 +1,43 @@
 ---
-    title: Church Notes
-    summary: An innovative note-taking app that automatically adds bible verses in your note.
-    author: "Richie Budijono"
-    publishedAt: "2024-10-16"
+title: Church Notes
+summary: A focused note-taking product that brings relevant Bible passages directly into the writing experience.
+coverImage: /images/projects/church_notes/store_listing/1_store_listing.png
+author: Richie Budijono
+publishedAt: "2024-10-16"
+featured: true
+client: Independent product
+role: Product designer and engineer
+period: "2024"
+services: [Product design, Mobile development, Store launch]
+technologies: [Flutter, SQLite, Quill]
+visualStyle: image
+links:
+  - { label: View on Google Play, url: "https://play.google.com/store/apps/details?id=com.lonedreamstudio.church_notes" }
 ---
 
-Church Notes is an innovative and intuitive note-taking app designed to enhance your experience by seamlessly integrating Bible verses into your notes. 
-Whether you’re studying, journaling, or jotting down ideas, Church Notes inspires you by automatically adding relevant verses from arious Bible translations.
-[![Church Notes](/images/get_it_on_google_play.png)](https://play.google.com/store/apps/details?id=com.lonedreamstudio.church_notes)
+## Context
 
-Screenshots:
-<div className="flex flex-wrap gap-4"> 
-    <NextImage src="/images/projects/church_notes/store_listing/1_store_listing.png" alt="Store Listing 1" />
-    <NextImage src="/images/projects/church_notes/store_listing/2_store_listing.png" alt="Store Listing 2" />
+Church Notes began with a small product observation: people taking notes during a sermon or study session frequently interrupt their writing to search for a passage. I designed and built a mobile experience that keeps that context inside the note itself.
+
+## The product
+
+The editor recognizes scripture references and brings relevant verses from multiple translations into the writing flow. Notes remain local and fast, while a familiar rich-text editor gives people enough structure without making the app feel heavy.
+
+[![Get Church Notes on Google Play](/images/get_it_on_google_play.png)](https://play.google.com/store/apps/details?id=com.lonedreamstudio.church_notes)
+
+## Product screens
+
+<div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+  <NextImage src="/images/projects/church_notes/store_listing/1_store_listing.png" alt="Church Notes writing experience" />
+  <NextImage src="/images/projects/church_notes/store_listing/2_store_listing.png" alt="Church Notes scripture integration" />
+  <NextImage src="/images/projects/church_notes/store_listing/3_store_listing.png" alt="Church Notes organization" />
+  <NextImage src="/images/projects/church_notes/store_listing/4_store_listing.png" alt="Church Notes settings" />
 </div>
-<div className="flex flex-wrap gap-4">
-    <NextImage src="/images/projects/church_notes/store_listing/3_store_listing.png" alt="Store Listing 3" />
-    <NextImage src="/images/projects/church_notes/store_listing/4_store_listing.png" alt="Store Listing 4" />
-</div>
 
+## Technical decisions
 
-Check out the Source Code: <GithubLogo href="https://github.com/Salvist/church_notes"/>
+- **Flutter** for one cohesive mobile interface.
+- **SQLite** for private, fast, offline-first note storage.
+- **Quill** for a flexible rich-text editing foundation.
 
-## Tech Stack:
-- **Flutter**: Used for the mobile app front-end framework.
-    - flutter_bloc
-    - flutter_quill
-    - shared_preferences
-    - sqflite
-- **SQLITE**: Used to store notes locally.
-- **Quill**: A wonderful rich text editor so the user can style their notes.
+Explore the source code: <GithubLogo href="https://github.com/Salvist/church_notes" />

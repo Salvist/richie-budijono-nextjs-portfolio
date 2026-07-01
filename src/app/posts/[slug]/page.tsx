@@ -28,7 +28,7 @@ export default async function Post({
   const { title, image, author, publishedAt } = metadata;
 
   return (
-    <section className="pb-24 pt-32">
+    <section className="pb-24 pt-24">
       <div className="container max-w-3xl">
         <Link href="/posts" className="flex items-center">
           <ArrowLeftIcon />

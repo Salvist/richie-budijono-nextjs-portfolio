@@ -4,7 +4,8 @@ import GithubLogo from "./github_logo";
 import NextImage from "./next_image";
 
 function Code({ children, ...props }: any) {
-  let codeHTML = highlight(children);
+  const code = String(children).replace(/\r\n?/g, "\n");
+  const codeHTML = highlight(code);
   return <code dangerouslySetInnerHTML={{ __html: codeHTML }} {...props} />;
 }
 
