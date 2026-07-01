@@ -5,11 +5,45 @@ import RevealOnScroll from "./reveal_on_scroll";
 import { ExperienceEntry, formatExperienceLength, formatExperienceRange } from "@/lib/experience";
 import { cn } from "@/lib/utils";
 
+function ExperienceDates({
+  range,
+  length,
+  isCurrent,
+  className,
+  stacked = false,
+}: {
+  range: string;
+  length: string;
+  isCurrent: boolean;
+  className?: string;
+  stacked?: boolean;
+}) {
+  return (
+    <div
+      className={cn(
+        stacked
+          ? "flex w-full min-w-0 flex-col items-end gap-1 text-right"
+          : "flex flex-wrap items-center gap-x-2 gap-y-1",
+        className,
+      )}
+    >
+      <p className={cn("text-sm font-medium text-muted-foreground", !stacked && "whitespace-nowrap")}>{range}</p>
+      <p className="text-xs text-muted-foreground/70">{length}</p>
+      {isCurrent && (
+        <span className="inline-flex items-center gap-1.5 text-xs font-medium text-accent">
+          <span className="size-1.5 rounded-full bg-accent" />
+          Current
+        </span>
+      )}
+    </div>
+  );
+}
+
 export default function ExperienceTimeline({ experiences }: { experiences: ExperienceEntry[] }) {
   const gridVars = { "--timeline-rows": experiences.length } as React.CSSProperties;
 
   return (
-    <div className="grid sm:ml-8 sm:grid-cols-[10rem_2rem_1fr] lg:ml-16" style={gridVars}>
+    <div className="grid sm:ml-8 sm:grid-cols-[12rem_2rem_minmax(0,1fr)] lg:ml-16" style={gridVars}>
       {experiences.length > 1 && (
         <div
           aria-hidden
@@ -29,16 +63,9 @@ export default function ExperienceTimeline({ experiences }: { experiences: Exper
             <RevealOnScroll
               delay={delay}
               style={rowVar}
-              className="flex items-center gap-2 py-10 sm:flex sm:flex-col sm:items-end sm:text-right sm:[grid-column:1] sm:[grid-row:var(--timeline-row)]"
+              className="hidden min-w-0 py-10 sm:flex sm:[grid-column:1] sm:[grid-row:var(--timeline-row)]"
             >
-              <p className="text-sm font-medium text-muted-foreground sm:whitespace-nowrap">{range}</p>
-              <p className="mt-1 text-xs text-muted-foreground/70">{length}</p>
-              {isCurrent && (
-                <span className="inline-flex items-center gap-1.5 text-xs font-medium text-accent sm:mt-2">
-                  <span className="size-1.5 rounded-full bg-accent" />
-                  Current
-                </span>
-              )}
+              <ExperienceDates range={range} length={length} isCurrent={isCurrent} stacked />
             </RevealOnScroll>
 
             <RevealOnScroll
@@ -65,6 +92,13 @@ export default function ExperienceTimeline({ experiences }: { experiences: Exper
                   <p className="text-sm text-muted-foreground">{experience.role}</p>
                 </div>
               </div>
+
+              <ExperienceDates
+                range={range}
+                length={length}
+                isCurrent={isCurrent}
+                className="mt-4 sm:hidden"
+              />
 
               <p className="mt-5 max-w-2xl leading-7 text-muted-foreground">{experience.summary}</p>
 
