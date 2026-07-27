@@ -1,32 +1,29 @@
 ---
-    title: Snap AI Web App
-    summary: A web app with Stable Diffusion
-    image: /images/projects/snap_ai_banner.png
-    author: "Richie Budijono"
-    publishedAt: "2024-10-04"
+title: Snap AI Web App
+summary: A browser-based Stable Diffusion experiment adapted from the original mobile product.
+status: experiment
+platforms:
+  - Web
+technologies:
+  - Flutter
+  - Firebase
+  - Stable Diffusion
+productUrl: https://snap-ai-68297.web.app/
+coverImage: /images/projects/snap_ai_banner.png
 ---
 
-Snap AI Web is a simpler version of the mobile app that uses Stable Diffusion to turn prompts into ideas.
+Snap AI Web is a smaller browser-based version of the original mobile experiment. It explores how the same generation workflow can work as an accessible web experience.
 
-Check the app here: <a href="https://snap-ai-68297.web.app/" target="_blank" rel="noopener">Snap AI Web App</a>
+[Open the web experiment](https://snap-ai-68297.web.app/)
 
-## Current Features
-- Text to Image: Turn prompts into image
+## Product capabilities
 
-## Upcoming Features
-- Customized parameters for Text to Image
-- More models
-- Text to Video: Turn prompts into video
+- Text to image generation.
+- Firebase-backed accounts and token refreshes.
+- Responsive Flutter web interface.
 
-## Tech Stack:
-- **Flutter**: Used for the web app front-end framework.
-    - flutter_bloc
-    - go_router
-- **Firebase**: Used for the back-end
-    - Authentication
-    - Firestore
-    - Storage
-    - Cloud Functions
-    - Cloud Scheduler
-    - Hosting
-- **ModelsLab**: A stable diffusion provider.
+## Tech stack
+
+- **Flutter** with `flutter_bloc` and `go_router`.
+- **Firebase** for authentication, Firestore, storage, functions, scheduling, and hosting.
+- **ModelsLab** as the Stable Diffusion provider.

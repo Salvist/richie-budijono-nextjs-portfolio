@@ -1,0 +1,137 @@
+import fs from "node:fs/promises";
+import path from "node:path";
+import matter from "gray-matter";
+import { z } from "zod";
+
+const requiredText = z.string().trim().min(1);
+
+export const caseStudyMetadataSchema = z.object({
+  title: requiredText,
+  summary: requiredText,
+  client: requiredText,
+  role: requiredText,
+  year: requiredText,
+  services: z.array(requiredText).min(1),
+  technologies: z.array(requiredText).min(1),
+  outcomes: z.array(requiredText).min(1),
+  featured: z.boolean(),
+  coverImage: requiredText,
+  slug: requiredText,
+});
+
+export const productMetadataSchema = z.object({
+  title: requiredText,
+  summary: requiredText,
+  status: z.enum(["active", "shipped", "experiment", "archived"]),
+  platforms: z.array(requiredText).min(1),
+  technologies: z.array(requiredText).min(1),
+  productUrl: z.string().url().optional(),
+  sourceUrl: z.string().url().optional(),
+  coverImage: requiredText,
+  slug: requiredText,
+});
+
+export const insightMetadataSchema = z.object({
+  title: requiredText,
+  summary: requiredText,
+  publishedAt: requiredText,
+  updatedAt: requiredText.optional(),
+  topics: z.array(requiredText).min(1),
+  coverImage: requiredText,
+  slug: requiredText,
+});
+
+export type CaseStudyMetadata = z.infer<typeof caseStudyMetadataSchema>;
+export type ProductMetadata = z.infer<typeof productMetadataSchema>;
+export type InsightMetadata = z.infer<typeof insightMetadataSchema>;
+
+export type ContentEntry<T> = {
+  metadata: T;
+  content: string;
+};
+
+const contentRoot = path.join(process.cwd(), "src", "content");
+
+async function readCollection<T>(
+  directory: string,
+  schema: z.ZodType<T>,
+): Promise<ContentEntry<T>[]> {
+  const directoryPath = path.join(contentRoot, directory);
+  const files = (await fs.readdir(directoryPath)).filter((file) =>
+    file.endsWith(".mdx"),
+  );
+
+  return Promise.all(
+    files.map(async (file) => {
+      const filePath = path.join(directoryPath, file);
+      const raw = await fs.readFile(filePath, "utf8");
+      const { data, content } = matter(raw);
+
+      try {
+        const metadata = schema.parse({
+          ...data,
+          slug: file.replace(/\.mdx$/, ""),
+        });
+        return { metadata, content };
+      } catch (error) {
+        if (error instanceof z.ZodError) {
+          throw new Error(
+            `Invalid frontmatter in ${filePath}: ${error.issues
+              .map((issue) => `${issue.path.join(".")}: ${issue.message}`)
+              .join("; ")}`,
+          );
+        }
+        throw error;
+      }
+    }),
+  );
+}
+
+export async function getCaseStudies(): Promise<
+  ContentEntry<CaseStudyMetadata>[]
+> {
+  const studies = await readCollection("work", caseStudyMetadataSchema);
+  return studies.sort(
+    (a, b) => Number(b.metadata.featured) - Number(a.metadata.featured),
+  );
+}
+
+export async function getProducts(): Promise<ContentEntry<ProductMetadata>[]> {
+  const products = await readCollection("projects", productMetadataSchema);
+  return products.sort((a, b) => {
+    const rank = { active: 0, shipped: 1, experiment: 2, archived: 3 };
+    return rank[a.metadata.status] - rank[b.metadata.status];
+  });
+}
+
+export async function getInsights(): Promise<
+  ContentEntry<InsightMetadata>[]
+> {
+  const insights = await readCollection("posts", insightMetadataSchema);
+  return insights.sort(
+    (a, b) =>
+      new Date(b.metadata.publishedAt).getTime() -
+      new Date(a.metadata.publishedAt).getTime(),
+  );
+}
+
+export async function getCaseStudy(
+  slug: string,
+): Promise<ContentEntry<CaseStudyMetadata> | null> {
+  const studies = await getCaseStudies();
+  return studies.find((entry) => entry.metadata.slug === slug) ?? null;
+}
+
+export async function getProduct(
+  slug: string,
+): Promise<ContentEntry<ProductMetadata> | null> {
+  const products = await getProducts();
+  return products.find((entry) => entry.metadata.slug === slug) ?? null;
+}
+
+export async function getInsight(
+  slug: string,
+): Promise<ContentEntry<InsightMetadata> | null> {
+  const insights = await getInsights();
+  return insights.find((entry) => entry.metadata.slug === slug) ?? null;
+}

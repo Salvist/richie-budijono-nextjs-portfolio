@@ -1,15 +1,43 @@
+import Link from "next/link";
+
 export default function Footer() {
   return (
-    <footer className="py-8">
-      <div className="container max-w-3xl">
-        <div className="md:flex md:items-center md:justify-between">
-          <div className="flex justify-center space-x-6 md:order-2"></div>
-          <div className="mt-8 md:order-1 md:mt-0">
-            <p className="text-center text-xs leading-5 text-muted-foreground">
-              &copy; {new Date().getFullYear()} Richie Budijono. All rights
-              reserved.
+    <footer className="border-t border-border py-12">
+      <div className="container max-w-7xl">
+        <div className="grid gap-10 md:grid-cols-[1.5fr_1fr_1fr]">
+          <div>
+            <p className="text-lg font-bold">Richie Budijono</p>
+            <p className="mt-2 max-w-sm text-sm leading-6 text-muted-foreground">
+              Independent product consultant helping founders shape, build, and
+              launch reliable web and mobile products.
             </p>
           </div>
+          <div>
+            <p className="eyebrow">Explore</p>
+            <div className="mt-4 grid gap-2 text-sm">
+              <Link href="/work">Work</Link>
+              <Link href="/services">Services</Link>
+              <Link href="/insights">Insights</Link>
+              <Link href="/about">About</Link>
+            </div>
+          </div>
+          <div>
+            <p className="eyebrow">Elsewhere</p>
+            <div className="mt-4 grid gap-2 text-sm">
+              <a
+                href="https://github.com/Salvist"
+                target="_blank"
+                rel="noreferrer"
+              >
+                GitHub ↗
+              </a>
+              <a href="mailto:richiechandra47@gmail.com">Email ↗</a>
+            </div>
+          </div>
+        </div>
+        <div className="mt-12 flex flex-col gap-2 border-t border-border pt-6 text-xs text-muted-foreground sm:flex-row sm:items-center sm:justify-between">
+          <p>© {new Date().getFullYear()} Richie Budijono.</p>
+          <p>Founder of Lone Dream Studio.</p>
         </div>
       </div>
     </footer>

@@ -5,19 +5,19 @@ export interface NavItem {
 
 export const navItems: NavItem[] = [
   {
-    name: "Posts",
-    path: "/posts",
+    name: "Work",
+    path: "/work",
   },
   {
-    name: "Projects",
-    path: "/projects",
+    name: "Services",
+    path: "/services",
   },
   {
-    name: "About me",
-    path: "/about_me",
+    name: "Insights",
+    path: "/insights",
   },
   {
-    name: "Experience",
-    path: "/experience",
+    name: "About",
+    path: "/about",
   },
 ];

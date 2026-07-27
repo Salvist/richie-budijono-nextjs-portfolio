@@ -1,21 +1,29 @@
 ---
-    title: Snap AI
-    summary: A mobile app with Stable Diffusion
-    image: /images/projects/snap_ai_banner.png
-    author: "Richie Budijono"
-    publishedAt: "2024-08-29"
+title: Snap AI
+summary: A mobile experiment for turning written prompts into generated images.
+status: archived
+platforms:
+  - Android
+technologies:
+  - Flutter
+  - Firebase
+  - Stable Diffusion
+productUrl: https://play.google.com/store/apps/details?id=com.lonedreamdstudio.snap_ai
+coverImage: /images/projects/snap_ai_banner.png
 ---
 
-Snap AI is a mobile app that uses Stable Diffusion to turn prompts into ideas.
+Snap AI was a mobile product experiment that used Stable Diffusion to turn written prompts and source images into new visual ideas.
 
-[![Snap AI](/images/get_it_on_google_play.png)](https://play.google.com/store/apps/details?id=com.lonedreamdstudio.snap_ai)
+## Product capabilities
 
-## Current Features
-- Text to Image: Turn prompts into image
-- Image to Image: Turn the given image with prompts into another image
+- Text to image generation.
+- Image to image transformation.
+- Account, token, and generated-image workflows.
 
-## Tech Stack:
-- **Flutter**: Used for the mobile app front-end framework.
-- **Firebase**: Used for the back-end (Authentication, Firestore, Storage, Cloud Functions, Hosting).
-- **NextJS**: Currently used only for user deletion to fulfills user policy. Will be developed in the future into a full landing website for the app.
-- **ModelsLab**: A stable diffusion provider.
+## Tech stack
+
+- **Flutter** for the mobile application.
+- **Firebase** for authentication, data, storage, functions, and hosting.
+- **ModelsLab** as the Stable Diffusion provider.
+
+The product also became a practical lesson in designing safety checks around generative AI rather than relying on provider-level moderation alone.
