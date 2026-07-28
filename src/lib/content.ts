@@ -116,9 +116,19 @@ export const insightMetadataSchema = z.object({
   slug: requiredText,
 });
 
+export const legalDocumentMetadataSchema = z.object({
+  title: requiredText,
+  description: requiredText,
+  effectiveDate: requiredText,
+  slug: requiredText,
+});
+
 export type CaseStudyMetadata = z.infer<typeof caseStudyMetadataSchema>;
 export type ProductMetadata = z.infer<typeof productMetadataSchema>;
 export type InsightMetadata = z.infer<typeof insightMetadataSchema>;
+export type LegalDocumentMetadata = z.infer<
+  typeof legalDocumentMetadataSchema
+>;
 
 export type ContentEntry<T> = {
   metadata: T;
@@ -204,6 +214,12 @@ export async function getInsights(): Promise<
   );
 }
 
+export async function getLegalDocuments(): Promise<
+  ContentEntry<LegalDocumentMetadata>[]
+> {
+  return readCollection("legal", legalDocumentMetadataSchema);
+}
+
 export async function getCaseStudy(
   slug: string,
 ): Promise<ContentEntry<CaseStudyMetadata> | null> {
@@ -223,4 +239,11 @@ export async function getInsight(
 ): Promise<ContentEntry<InsightMetadata> | null> {
   const insights = await getInsights();
   return insights.find((entry) => entry.metadata.slug === slug) ?? null;
+}
+
+export async function getLegalDocument(
+  slug: string,
+): Promise<ContentEntry<LegalDocumentMetadata> | null> {
+  const documents = await getLegalDocuments();
+  return documents.find((entry) => entry.metadata.slug === slug) ?? null;
 }

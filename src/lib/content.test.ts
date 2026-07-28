@@ -2,8 +2,11 @@ import { describe, expect, it } from "vitest";
 import {
   getCaseStudies,
   getInsights,
+  getLegalDocument,
+  getLegalDocuments,
   getProducts,
   getStudioProducts,
+  legalDocumentMetadataSchema,
   productMetadataSchema,
 } from "./content";
 
@@ -83,5 +86,36 @@ describe("validated content collections", () => {
     );
 
     expect(timestamps).toEqual([...timestamps].sort((a, b) => b - a));
+  });
+
+  it("loads the shared Lone Dream Studio privacy policy", async () => {
+    const documents = await getLegalDocuments();
+    const policy = await getLegalDocument("privacy-policy");
+
+    expect(documents).toHaveLength(1);
+    expect(policy?.metadata).toEqual({
+      title: "Privacy Policy",
+      description:
+        "Learn how Lone Dream Studio applications collect, use, retain, and protect information.",
+      effectiveDate: "2026-07-28",
+      slug: "privacy-policy",
+    });
+    expect(policy?.content).toContain(
+      "published by Lone Dream Studio (collectively, the \"Applications\")",
+    );
+    expect(policy?.content).not.toContain("Daily Manna");
+    expect(policy?.content).not.toContain("Accessibility Service");
+    expect(policy?.content).not.toContain("Bible");
+  });
+
+  it("requires complete legal document metadata", () => {
+    const result = legalDocumentMetadataSchema.safeParse({
+      title: "Privacy Policy",
+      description: "",
+      effectiveDate: "2026-07-28",
+      slug: "privacy-policy",
+    });
+
+    expect(result.success).toBe(false);
   });
 });

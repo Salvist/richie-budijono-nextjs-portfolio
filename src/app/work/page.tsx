@@ -1,5 +1,6 @@
 import { workExperience } from "@/lib/work_experience";
 import type { Metadata } from "next";
+import Link from "next/link";
 
 export const metadata: Metadata = {
   title: "Work Experience",
@@ -8,16 +9,19 @@ export const metadata: Metadata = {
   alternates: { canonical: "/work" },
 };
 
+const companyLinkClassName =
+  "relative inline-block transition-colors after:absolute after:inset-x-0 after:-bottom-1 after:h-0.5 after:origin-left after:scale-x-0 after:bg-primary after:transition-transform after:duration-300 hover:text-primary hover:after:scale-x-100 focus-visible:after:scale-x-100";
+
 export default function WorkPage() {
   return (
     <>
       <section className="page-shell pb-14 sm:pb-16">
         <p className="eyebrow">Work experience</p>
-        <div className="mt-5 grid gap-8 lg:grid-cols-[1.1fr_0.9fr] lg:items-end">
+        <div className="mt-5 max-w-4xl">
           <h1 className="display-title">
-            Building products from first prototype to production.
+            My professional experience.
           </h1>
-          <p className="lede max-w-xl lg:justify-self-end">
+          <p className="lede mt-7 max-w-2xl">
             My experience spans independent products, AI-assisted creative
             tools, education platforms, e-commerce, and the systems that keep
             them running.
@@ -43,39 +47,55 @@ export default function WorkPage() {
                 className="absolute left-0 top-2 z-10 size-4 rounded-full border-4 border-background bg-primary ring-1 ring-border md:left-[14rem]"
               />
 
-              <div className="md:pt-1 md:text-right">
+              <div className="hidden md:block md:pt-1 md:text-right">
                 <p className="font-display text-sm font-bold">
                   {experience.dateLabel}
                 </p>
-                {experience.location && (
-                  <p className="mt-1 text-sm text-muted-foreground">
-                    {experience.location}
-                  </p>
-                )}
               </div>
 
               <article className="surface p-6 sm:p-8">
-                <p className="eyebrow">{experience.role}</p>
-                <h3 className="mt-3 text-3xl font-bold tracking-[-0.03em] sm:text-4xl">
+                <h3 className="text-3xl font-bold tracking-[-0.03em] sm:text-4xl">
                   {experience.companyUrl ? (
-                    <a
-                      href={experience.companyUrl}
-                      target="_blank"
-                      rel="noreferrer"
-                      className="inline-flex items-baseline gap-2 transition-colors hover:text-primary"
-                    >
-                      {experience.company}
-                      <span
-                        aria-hidden="true"
-                        className="text-lg text-primary sm:text-xl"
+                    experience.companyUrl.startsWith("/") ? (
+                      <Link
+                        href={experience.companyUrl}
+                        className={companyLinkClassName}
                       >
-                        ↗
-                      </span>
-                    </a>
+                        {experience.company}
+                      </Link>
+                    ) : (
+                      <a
+                        href={experience.companyUrl}
+                        target="_blank"
+                        rel="noreferrer"
+                        className={companyLinkClassName}
+                      >
+                        {experience.company}
+                      </a>
+                    )
                   ) : (
                     experience.company
                   )}
                 </h3>
+                <p className="mt-3 font-display text-lg font-bold">
+                  {experience.role}
+                </p>
+                <div className="mt-2 flex flex-wrap items-center gap-x-2 gap-y-1 text-sm">
+                  <p className="font-semibold">{experience.dateLabel}</p>
+                  {experience.location && (
+                    <>
+                      <span
+                        aria-hidden="true"
+                        className="text-muted-foreground"
+                      >
+                        ·
+                      </span>
+                      <p className="text-muted-foreground">
+                        {experience.location}
+                      </p>
+                    </>
+                  )}
+                </div>
 
                 <ul className="mt-7 grid gap-4">
                   {experience.achievements.map((achievement) => (

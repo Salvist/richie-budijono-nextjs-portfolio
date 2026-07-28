@@ -18,6 +18,7 @@ export interface WorkExperience {
 export const workExperience: readonly WorkExperience[] = [
   {
     company: "Lone Dream Studio",
+    companyUrl: "/studio",
     role: "Founder",
     location: "New York, NY",
     startDate: "2026-01",

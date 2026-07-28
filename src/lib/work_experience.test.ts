@@ -86,6 +86,10 @@ describe("resume-based work experience", () => {
         .map(({ company, companyUrl }) => ({ company, companyUrl })),
     ).toEqual([
       {
+        company: "Lone Dream Studio",
+        companyUrl: "/studio",
+      },
+      {
         company: "LangInnov / BLAST",
         companyUrl: "https://langinnov.com",
       },
