@@ -4,6 +4,7 @@ import {
   getInsights,
   getLegalDocument,
   getLegalDocuments,
+  getProduct,
   getProducts,
   getStudioProducts,
   legalDocumentMetadataSchema,
@@ -30,20 +31,68 @@ describe("validated content collections", () => {
     );
   });
 
+  it("orders projects by status and then title", async () => {
+    const products = await getProducts();
+
+    expect(
+      products.map(({ metadata }) => [
+        metadata.status,
+        metadata.title,
+      ]),
+    ).toEqual([
+      ["active", "Church Notes"],
+      ["active", "Daily Manna"],
+      ["active", "TrackU"],
+      ["active", "Unsaid"],
+      ["experiment", "Doer"],
+      ["experiment", "Expense Archive"],
+      ["experiment", "Snap AI Web App"],
+      ["archived", "Snap AI"],
+    ]);
+  });
+
+  it("loads project detail content by slug", async () => {
+    const project = await getProduct("tracku");
+
+    expect(project?.metadata.title).toBe("TrackU");
+    expect(project?.content).toContain("everyday financial records");
+    await expect(getProduct("missing-project")).resolves.toBeNull();
+  });
+
+  it("keeps project detail content structurally consistent", async () => {
+    const products = await getProducts();
+
+    expect(
+      products.every(
+        ({ content }) =>
+          content.includes("## Product capabilities") &&
+          content.includes("## Tech stack"),
+      ),
+    ).toBe(true);
+  });
+
+  it("uses storeLinks instead of productUrl for app-store destinations", async () => {
+    const products = await getProducts();
+
+    expect(
+      products.every(({ metadata }) => {
+        if (!metadata.productUrl) return true;
+        const hostname = new URL(metadata.productUrl).hostname;
+        return !["apps.apple.com", "play.google.com"].includes(hostname);
+      }),
+    ).toBe(true);
+  });
+
   it("orders featured Studio products explicitly", async () => {
     const products = await getStudioProducts("featured");
 
     expect(products.map(({ metadata }) => metadata.title)).toEqual([
-      "Daily Manna",
       "TrackU",
       "Church Notes",
     ]);
     expect(
       products.every(
-        ({ metadata }) =>
-          metadata.highlights.length === 3 &&
-          metadata.showcaseImages.length >= 2 &&
-          metadata.storeLinks.length >= 1,
+        ({ metadata }) => metadata.storeLinks.length >= 1,
       ),
     ).toBe(true);
   });
@@ -77,6 +126,23 @@ describe("validated content collections", () => {
     });
 
     expect(result.success).toBe(false);
+  });
+
+  it("allows project metadata without a cover image", () => {
+    const result = productMetadataSchema.safeParse({
+      title: "Project without artwork",
+      summary: "A project that uses the shared fallback artwork.",
+      status: "experiment",
+      platforms: ["Web"],
+      technologies: ["TypeScript"],
+      studioPlacement: "hidden",
+      slug: "project-without-artwork",
+    });
+
+    expect(result.success).toBe(true);
+    if (result.success) {
+      expect(result.data.coverImage).toBeUndefined();
+    }
   });
 
   it("sorts insights by most recent publish date", async () => {

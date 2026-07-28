@@ -1,11 +1,14 @@
-import { getInsights } from "@/lib/content";
+import { getInsights, getProducts } from "@/lib/content";
 import type { MetadataRoute } from "next";
 
 export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   const baseUrl = (
     process.env.NEXT_PUBLIC_SITE_URL ?? "http://localhost:3000"
   ).replace(/\/$/, "");
-  const insights = await getInsights();
+  const [insights, projects] = await Promise.all([
+    getInsights(),
+    getProducts(),
+  ]);
 
   const staticRoutes = [
     "",
@@ -29,6 +32,11 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
       lastModified: new Date(metadata.updatedAt ?? metadata.publishedAt),
       changeFrequency: "monthly" as const,
       priority: 0.65,
+    })),
+    ...projects.map(({ metadata }) => ({
+      url: `${baseUrl}/projects/${metadata.slug}`,
+      changeFrequency: "yearly" as const,
+      priority: 0.7,
     })),
   ];
 }

@@ -1,7 +1,8 @@
-import type {
-  CaseStudyMetadata,
-  InsightMetadata,
-  ProductMetadata,
+import {
+  DEFAULT_PRODUCT_COVER_IMAGE,
+  type CaseStudyMetadata,
+  type InsightMetadata,
+  type ProductMetadata,
 } from "@/lib/content";
 import { formatDate } from "@/lib/utils";
 import Image from "next/image";
@@ -58,24 +59,39 @@ export function CaseStudyCard({
 }
 
 export function ProductCard({ product }: { product: ProductMetadata }) {
+  const coverImage = product.coverImage ?? DEFAULT_PRODUCT_COVER_IMAGE;
+  const isAnimatedImage = /\.gif(?:$|\?)/i.test(coverImage);
+
   return (
-    <article className="surface group overflow-hidden">
-      <Link href={`/work/${product.slug}`} className="block h-full">
+    <article className="surface group h-full overflow-hidden">
+      <Link
+        href={`/projects/${product.slug}`}
+        className="flex h-full flex-col"
+      >
         <div className="relative aspect-[16/10] overflow-hidden bg-muted">
           <Image
-            src={product.coverImage}
+            src={coverImage}
             alt=""
             fill
             sizes="(min-width: 768px) 33vw, 100vw"
-            className="object-cover transition-transform duration-500 group-hover:scale-[1.03]"
+            className="scale-110 object-cover opacity-20 blur-2xl"
+            unoptimized={isAnimatedImage}
+          />
+          <Image
+            src={coverImage}
+            alt={`${product.title} project preview`}
+            fill
+            sizes="(min-width: 1280px) 27vw, (min-width: 768px) 45vw, 100vw"
+            className="object-contain p-8 transition-transform duration-500 group-hover:scale-[1.04] sm:p-10"
+            unoptimized={isAnimatedImage}
           />
           <div className="absolute inset-0 bg-gradient-to-t from-black/40 to-transparent" />
           <span className="absolute left-5 top-5 rounded-full bg-background/90 px-3 py-1 text-xs font-bold capitalize text-foreground backdrop-blur">
             {product.status}
           </span>
         </div>
-        <div className="p-6">
-          <p className="eyebrow">Lone Dream Studio</p>
+        <div className="flex grow flex-col p-6">
+          <p className="eyebrow">{product.platforms.join(" · ")}</p>
           <h3 className="mt-3 text-2xl font-bold tracking-tight">
             {product.title}
           </h3>
@@ -89,6 +105,9 @@ export function ProductCard({ product }: { product: ProductMetadata }) {
               </span>
             ))}
           </div>
+          <p className="mt-auto pt-6 text-sm font-bold text-primary">
+            View project <span aria-hidden>→</span>
+          </p>
         </div>
       </Link>
     </article>

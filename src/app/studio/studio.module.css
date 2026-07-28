@@ -403,77 +403,26 @@
   height: 0.35rem;
 }
 
-.screenStack {
-  position: absolute;
-  inset: 7% 5% 4%;
-}
-
-.screen {
-  position: absolute;
-  overflow: hidden;
-  width: min(47%, 18rem);
-  aspect-ratio: 9 / 16;
-  border: 5px solid color-mix(in srgb, var(--studio-ink) 88%, transparent);
-  border-radius: 1.7rem;
-  background: var(--studio-panel-strong);
-  box-shadow: 0 28px 68px rgba(8, 13, 34, 0.3);
-  transition:
-    transform 500ms ease,
-    box-shadow 500ms ease;
-}
-
-.screen[data-position="0"] {
-  left: 5%;
-  top: 12%;
-  z-index: 2;
-  transform: rotate(-7deg);
-  animation: float-a 8s ease-in-out infinite;
-}
-
-.screen[data-position="1"] {
-  right: 4%;
-  top: 2%;
-  z-index: 1;
-  transform: rotate(7deg);
-  animation: float-b 9s ease-in-out infinite;
-}
-
-.screen[data-position="2"] {
-  bottom: -9%;
-  left: 34%;
-  z-index: 3;
-  width: min(39%, 15rem);
-  transform: rotate(1.5deg);
-}
-
-.screenImage {
-  object-fit: cover;
-}
-
-.showcase:hover .screen {
-  box-shadow: 0 36px 85px rgba(8, 13, 34, 0.36);
-}
-
 .floatingIcon {
   position: absolute;
-  right: 6%;
-  bottom: 5%;
+  top: 50%;
+  left: 50%;
   z-index: 4;
   display: grid;
-  width: 7rem;
-  height: 7rem;
+  width: 12rem;
+  height: 12rem;
   place-items: center;
   border: 1px solid rgba(255, 255, 255, 0.28);
-  border-radius: 2rem;
+  border-radius: 3rem;
   background: rgba(255, 255, 255, 0.92);
   box-shadow: 0 25px 60px rgba(8, 13, 34, 0.3);
-  transform: rotate(4deg);
+  transform: translate(-50%, -50%) rotate(4deg);
 }
 
 .appIconImage {
   width: 100%;
   height: 100%;
-  border-radius: 1.75rem;
+  border-radius: 2.75rem;
   object-fit: cover;
 }
 
@@ -532,32 +481,6 @@
   color: var(--studio-muted);
   font-size: 1.02rem;
   line-height: 1.7;
-}
-
-.highlights {
-  display: grid;
-  gap: 0.8rem;
-  margin-top: 2.25rem;
-}
-
-.highlights li {
-  display: grid;
-  grid-template-columns: auto 1fr;
-  align-items: start;
-  gap: 0.9rem;
-  padding-top: 0.8rem;
-  border-top: 1px solid var(--studio-border);
-}
-
-.highlights span {
-  color: var(--product-accent);
-  font-size: 0.72rem;
-  font-weight: 800;
-}
-
-.highlights p {
-  color: var(--studio-muted);
-  line-height: 1.55;
 }
 
 .productLinks {
@@ -836,26 +759,6 @@
   }
 }
 
-@keyframes float-a {
-  0%,
-  100% {
-    transform: translateY(0) rotate(-7deg);
-  }
-  50% {
-    transform: translateY(-10px) rotate(-6deg);
-  }
-}
-
-@keyframes float-b {
-  0%,
-  100% {
-    transform: translateY(0) rotate(7deg);
-  }
-  50% {
-    transform: translateY(9px) rotate(6deg);
-  }
-}
-
 @media (min-width: 1024px) {
   .heroInner {
     transform: translateY(-3.5rem);
@@ -949,34 +852,14 @@
     border-radius: 2rem;
   }
 
-  .screen {
-    width: 51%;
-    border-width: 3px;
-    border-radius: 1.2rem;
-  }
-
-  .screen[data-position="0"] {
-    left: 0;
-  }
-
-  .screen[data-position="1"] {
-    right: 0;
-  }
-
-  .screen[data-position="2"] {
-    left: 31%;
-    width: 44%;
-  }
-
   .floatingIcon {
-    right: 4%;
-    width: 5.25rem;
-    height: 5.25rem;
-    border-radius: 1.4rem;
+    width: 9rem;
+    height: 9rem;
+    border-radius: 2.4rem;
   }
 
   .appIconImage {
-    border-radius: 1.2rem;
+    border-radius: 2.2rem;
   }
 
   .productIdentity {
@@ -1020,14 +903,11 @@
 }
 
 @media (prefers-reduced-motion: reduce) {
-  .stars,
-  .screen[data-position="0"],
-  .screen[data-position="1"] {
+  .stars {
     animation: none;
   }
 
   .storeButton,
-  .screen,
   .ctaButton,
   .ctaButton span {
     transition: none;

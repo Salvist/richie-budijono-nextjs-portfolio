@@ -1,5 +1,5 @@
-import { permanentRedirect } from "next/navigation";
+import { redirect } from "next/navigation";
 
 export default function LegacyProjectsPage() {
-  permanentRedirect("/work");
+  redirect("/insights#projects");
 }

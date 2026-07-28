@@ -1,6 +1,6 @@
 ---
-title: Daily Manna
-summary: A Bible reading companion built to turn intention into a consistent daily habit.
+title: "Daily Manna"
+summary: "Daily Manna helps Christians build a consistent Bible-reading habit with daily chapter goals, progress tracking, reminders, and distraction controls."
 status: active
 platforms:
   - iOS
@@ -8,16 +8,12 @@ platforms:
 technologies:
   - Flutter
   - Firebase
-  - Native widgets
+  - Swift
+  - Kotlin
+  - Next.js
 productUrl: https://mannahabit.com/
-coverImage: /images/studio/daily-manna/icon.png
-studioPlacement: featured
-studioOrder: 1
-benefit: Build a consistent Bible-reading habit before distractions take over.
-highlights:
-  - Follow reading progress, streaks, and milestones over time.
-  - Read Scripture in a calm experience made for daily focus.
-  - Use reminders and app-blocking tools to protect the habit.
+coverImage: /images/projects/daily-manna/daily-manna-reading.png
+studioPlacement: hidden
 storeLinks:
   - platform: iOS
     label: Download Daily Manna on the App Store
@@ -25,15 +21,36 @@ storeLinks:
   - platform: Android
     label: Get Daily Manna on Google Play
     href: https://play.google.com/store/apps/details?id=com.lonedreamstudio.daily_manna
-showcaseImages:
-  - src: /images/studio/daily-manna/reading.png
-    alt: Daily Manna focused Bible reading screen
-  - src: /images/studio/daily-manna/progress.png
-    alt: Daily Manna reading streak and monthly progress
-  - src: /images/studio/daily-manna/widgets.png
-    alt: Daily Manna home-screen widgets showing a streak and verse
-accent: manna
 ---
 
-Daily Manna is a Bible reading companion that pairs a calm reading experience
-with practical tools for building a durable daily habit.
+Daily Manna helps Christians make Bible reading part of everyday life. Readers choose a manageable daily pace, continue through Scripture from their saved position, and use progress tools to maintain a consistent routine.
+
+## Product capabilities
+
+- Choose a daily chapter goal and continue sequentially through the Bible from a saved reading position.
+- Read in a focused Scripture view with multi-color highlights, bookmarks, and personal notes.
+- Follow reading history through daily streaks, monthly activity heatmaps, progress summaries, and achievements.
+- Set reading reminders, view Scripture and progress in home-screen widgets, and manually log reading completed outside the app.
+- Use Manna Mode to block selected distracting apps until the day's Bible-reading goal is complete.
+
+## Screenshots
+
+<div className="not-prose grid grid-cols-2 gap-4 md:grid-cols-4">
+
+![Daily Manna reader showing Genesis 6 with a five-chapter daily goal](/images/projects/daily-manna/daily-manna-reading.png)
+
+![Progress view showing a seven-day streak and monthly reading activity heatmap](/images/projects/daily-manna/daily-manna-progress.png)
+
+![Psalm 23 reader with verses marked in blue and orange highlights](/images/projects/daily-manna/daily-manna-highlights.png)
+
+![Achievements page showing unlocked and upcoming chapter-reading milestones](/images/projects/daily-manna/daily-manna-achievements.png)
+
+</div>
+
+## Tech stack
+
+- **Flutter** provides the shared mobile interface and core reading experience for iOS and Android.
+- **Firebase** supports authentication, persisted reading data, messaging, analytics, and cloud services.
+- **Swift** implements iOS-specific widgets and Screen Time integrations used by Manna Mode.
+- **Kotlin** implements Android-specific widgets, notifications, and app-blocking integrations.
+- **Next.js** powers the public product website and its app-store download journey.

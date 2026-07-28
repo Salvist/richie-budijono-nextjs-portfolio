@@ -1,4 +1,8 @@
-import { getStudioProducts, type ProductMetadata } from "@/lib/content";
+import {
+  DEFAULT_PRODUCT_COVER_IMAGE,
+  getStudioProducts,
+  type ProductMetadata,
+} from "@/lib/content";
 import type { Metadata } from "next";
 import Image from "next/image";
 import Link from "next/link";
@@ -92,30 +96,15 @@ function StoreButton({
 }
 
 function ProductVisual({ product }: { product: ProductMetadata }) {
+  const coverImage = product.coverImage ?? DEFAULT_PRODUCT_COVER_IMAGE;
+
   return (
-    <div className={styles.productVisual}>
+      <div className={styles.productVisual}>
       <div className={styles.visualGlow} aria-hidden="true" />
       <div className={styles.visualOrbit} aria-hidden="true" />
-      <div className={styles.screenStack}>
-        {product.showcaseImages.slice(0, 3).map((image, index) => (
-          <div
-            key={image.src}
-            className={styles.screen}
-            data-position={index}
-          >
-            <Image
-              src={image.src}
-              alt={image.alt}
-              fill
-              sizes="(min-width: 1024px) 23vw, (min-width: 640px) 32vw, 56vw"
-              className={styles.screenImage}
-            />
-          </div>
-        ))}
-      </div>
       <div className={styles.floatingIcon}>
         <Image
-          src={product.coverImage}
+          src={coverImage}
           alt={`${product.title} app icon`}
           width={112}
           height={112}
@@ -134,6 +123,7 @@ function ProductShowcase({
   product: ProductMetadata;
   index: number;
 }) {
+  const coverImage = product.coverImage ?? DEFAULT_PRODUCT_COVER_IMAGE;
   const websiteUrl =
     product.productUrl &&
     !["apps.apple.com", "play.google.com"].includes(
@@ -158,7 +148,7 @@ function ProductShowcase({
 
         <div className={styles.productIdentity}>
           <Image
-            src={product.coverImage}
+            src={coverImage}
             alt=""
             width={72}
             height={72}
@@ -171,15 +161,6 @@ function ProductShowcase({
 
         <p className={styles.benefit}>{product.benefit}</p>
         <p className={styles.summary}>{product.summary}</p>
-
-        <ol className={styles.highlights}>
-          {product.highlights.map((highlight, highlightIndex) => (
-            <li key={highlight}>
-              <span aria-hidden="true">0{highlightIndex + 1}</span>
-              <p>{highlight}</p>
-            </li>
-          ))}
-        </ol>
 
         <div className={styles.productLinks}>
           {websiteUrl && (
@@ -342,7 +323,9 @@ export default async function StudioPage() {
                   data-accent={metadata.accent}
                 >
                   <Image
-                    src={metadata.coverImage}
+                    src={
+                      metadata.coverImage ?? DEFAULT_PRODUCT_COVER_IMAGE
+                    }
                     alt={`${metadata.title} app icon`}
                     width={96}
                     height={96}

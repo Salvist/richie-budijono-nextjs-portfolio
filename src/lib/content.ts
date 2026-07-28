@@ -5,6 +5,9 @@ import { z } from "zod";
 
 const requiredText = z.string().trim().min(1);
 
+export const DEFAULT_PRODUCT_COVER_IMAGE =
+  "/images/studio/lone-dream-studio-og.png";
+
 export const caseStudyMetadataSchema = z.object({
   title: requiredText,
   summary: requiredText,
@@ -32,11 +35,6 @@ const storeLinkSchema = z.object({
   href: httpsUrl,
 });
 
-const showcaseImageSchema = z.object({
-  src: requiredText,
-  alt: requiredText,
-});
-
 export const productMetadataSchema = z
   .object({
     title: requiredText,
@@ -46,15 +44,13 @@ export const productMetadataSchema = z
     technologies: z.array(requiredText).min(1),
     productUrl: z.string().url().optional(),
     sourceUrl: z.string().url().optional(),
-    coverImage: requiredText,
+    coverImage: requiredText.optional(),
     studioPlacement: z
       .enum(["featured", "earlier", "hidden"])
       .default("hidden"),
     studioOrder: z.number().int().nonnegative().default(999),
     benefit: requiredText.optional(),
-    highlights: z.array(requiredText).default([]),
     storeLinks: z.array(storeLinkSchema).default([]),
-    showcaseImages: z.array(showcaseImageSchema).default([]),
     accent: z
       .enum(["manna", "tracku", "church", "unsaid", "neutral"])
       .default("neutral"),
@@ -80,22 +76,6 @@ export const productMetadataSchema = z
     }
 
     if (product.studioPlacement === "featured") {
-      if (product.highlights.length !== 3) {
-        context.addIssue({
-          code: z.ZodIssueCode.custom,
-          path: ["highlights"],
-          message: "Featured Studio products require exactly three highlights.",
-        });
-      }
-
-      if (product.showcaseImages.length < 2) {
-        context.addIssue({
-          code: z.ZodIssueCode.custom,
-          path: ["showcaseImages"],
-          message: "Featured Studio products require at least two images.",
-        });
-      }
-
       if (product.accent === "neutral") {
         context.addIssue({
           code: z.ZodIssueCode.custom,
@@ -185,7 +165,15 @@ export async function getProducts(): Promise<ContentEntry<ProductMetadata>[]> {
   const products = await readCollection("projects", productMetadataSchema);
   return products.sort((a, b) => {
     const rank = { active: 0, shipped: 1, experiment: 2, archived: 3 };
-    return rank[a.metadata.status] - rank[b.metadata.status];
+    const statusOrder =
+      rank[a.metadata.status] - rank[b.metadata.status];
+
+    return (
+      statusOrder ||
+      a.metadata.title.localeCompare(b.metadata.title, "en", {
+        sensitivity: "base",
+      })
+    );
   });
 }
 

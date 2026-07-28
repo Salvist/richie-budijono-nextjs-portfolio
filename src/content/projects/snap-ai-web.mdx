@@ -15,16 +15,14 @@ studioPlacement: hidden
 
 Snap AI Web is a smaller browser-based version of the original mobile experiment. It explores how the same generation workflow can work as an accessible web experience.
 
-[Open the web experiment](https://snap-ai-68297.web.app/)
-
 ## Product capabilities
 
-- Text to image generation.
-- Firebase-backed accounts and token refreshes.
-- Responsive Flutter web interface.
+- Turn written prompts into generated images from a web browser.
+- Use Firebase-backed accounts and refreshed generation tokens.
+- Access the generation workflow through a responsive Flutter web interface.
 
 ## Tech stack
 
-- **Flutter** with `flutter_bloc` and `go_router`.
-- **Firebase** for authentication, Firestore, storage, functions, scheduling, and hosting.
-- **ModelsLab** as the Stable Diffusion provider.
+- **Flutter** provides the responsive web interface, with `flutter_bloc` for state management and `go_router` for navigation.
+- **Firebase** supports authentication, Firestore, storage, functions, scheduling, and hosting.
+- **ModelsLab** provides the Stable Diffusion generation service.

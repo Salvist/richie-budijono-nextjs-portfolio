@@ -1,7 +1,9 @@
-import { InsightCard } from "@/components/content_cards";
-import { getInsights } from "@/lib/content";
+import { InsightCard, ProductCard } from "@/components/content_cards";
+import { getInsights, getProducts } from "@/lib/content";
 import Image from "next/image";
 import Link from "next/link";
+
+const homepageProjectSlugs = ["tracku", "church_notes", "daily-manna"];
 
 const services = [
   {
@@ -58,7 +60,17 @@ const faqs = [
 ];
 
 export default async function Home() {
-  const insights = await getInsights();
+  const [insights, projects] = await Promise.all([
+    getInsights(),
+    getProducts(),
+  ]);
+  const featuredProjects = projects
+    .filter(({ metadata }) => homepageProjectSlugs.includes(metadata.slug))
+    .sort(
+      (a, b) =>
+        homepageProjectSlugs.indexOf(a.metadata.slug) -
+        homepageProjectSlugs.indexOf(b.metadata.slug),
+    );
 
   return (
     <>
@@ -132,6 +144,32 @@ export default async function Home() {
         </div>
       </section>
 
+      <section className="page-shell" aria-labelledby="projects-heading">
+        <div className="grid gap-6 lg:grid-cols-[0.8fr_1.2fr] lg:items-end">
+          <div>
+            <p className="eyebrow">Project showcase</p>
+            <h2 id="projects-heading" className="section-title mt-4">
+              Built to leave the idea stage.
+            </h2>
+          </div>
+          <div className="lg:justify-self-end">
+            <p className="lede max-w-2xl">
+              A selection of mobile products designed, built, and shipped
+              through Lone Dream Studio.
+            </p>
+            <Link href="/insights#projects" className="button-secondary mt-7">
+              View all projects <span aria-hidden>→</span>
+            </Link>
+          </div>
+        </div>
+
+        <div className="mt-10 grid gap-6 md:grid-cols-2 xl:grid-cols-3">
+          {featuredProjects.map(({ metadata }) => (
+            <ProductCard key={metadata.slug} product={metadata} />
+          ))}
+        </div>
+      </section>
+
       <section className="page-shell">
         <div className="grid gap-10 lg:grid-cols-[0.65fr_1.35fr]">
           <div>
@@ -165,7 +203,10 @@ export default async function Home() {
               Practical notes about product engineering, decisions, mistakes,
               and the work behind dependable software.
             </p>
-            <Link href="/insights" className="button-secondary mt-8">
+            <Link
+              href="/insights#field-notes"
+              className="button-secondary mt-8"
+            >
               Read all insights
             </Link>
           </div>
