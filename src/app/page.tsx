@@ -96,24 +96,6 @@ export default async function Home() {
         </div>
       </section>
 
-      <section className="border-y border-border bg-foreground py-7 text-background">
-        <div className="container flex max-w-7xl flex-wrap items-center justify-between gap-x-10 gap-y-4">
-          <p className="text-xs font-bold uppercase tracking-[0.2em] opacity-60">
-            Experience that reaches production
-          </p>
-          {[
-            "Mobile launches",
-            "Data platforms",
-            "AI workflows",
-            "Internal systems",
-          ].map((item) => (
-            <p key={item} className="font-display text-sm font-bold sm:text-base">
-              {item}
-            </p>
-          ))}
-        </div>
-      </section>
-
       <section className="border-y border-border bg-card/75">
         <div className="page-shell">
           <p className="eyebrow">How I can help</p>

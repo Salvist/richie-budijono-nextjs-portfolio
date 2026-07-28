@@ -15,7 +15,7 @@ export default function Footer() {
           <div>
             <p className="eyebrow">Explore</p>
             <div className="mt-4 grid gap-2 text-sm">
-              <Link href="/work">Work</Link>
+              <Link href="/work">Experience</Link>
               <Link href="/services">Services</Link>
               <Link href="/insights">Insights</Link>
               <Link href="/about">About</Link>

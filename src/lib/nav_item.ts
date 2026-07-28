@@ -5,7 +5,7 @@ export interface NavItem {
 
 export const navItems: NavItem[] = [
   {
-    name: "Work",
+    name: "Experience",
     path: "/work",
   },
   {

@@ -3,7 +3,7 @@ import type { Metadata } from "next";
 import Link from "next/link";
 
 export const metadata: Metadata = {
-  title: "Work Experience",
+  title: "Experience",
   description:
     "Richie Budijono's professional experience building mobile apps, AI workflows, data platforms, e-commerce products, and internal tools.",
   alternates: { canonical: "/work" },
@@ -12,11 +12,11 @@ export const metadata: Metadata = {
 const companyLinkClassName =
   "relative inline-block transition-colors after:absolute after:inset-x-0 after:-bottom-1 after:h-0.5 after:origin-left after:scale-x-0 after:bg-primary after:transition-transform after:duration-300 hover:text-primary hover:after:scale-x-100 focus-visible:after:scale-x-100";
 
-export default function WorkPage() {
+export default function ExperiencePage() {
   return (
     <>
       <section className="page-shell pb-14 sm:pb-16">
-        <p className="eyebrow">Work experience</p>
+        <p className="eyebrow">Experience</p>
         <div className="mt-5 max-w-4xl">
           <h1 className="display-title">
             My professional experience.
