@@ -1,64 +1,119 @@
-import {
-  CaseStudyCard,
-  ProductCard,
-} from "@/components/content_cards";
-import { getCaseStudies, getProducts } from "@/lib/content";
+import { workExperience } from "@/lib/work_experience";
 import type { Metadata } from "next";
 
 export const metadata: Metadata = {
-  title: "Work",
+  title: "Work Experience",
   description:
-    "Selected product engineering work and independent products by Richie Budijono.",
+    "Richie Budijono's professional experience building mobile apps, AI workflows, data platforms, e-commerce products, and internal tools.",
   alternates: { canonical: "/work" },
 };
 
-export default async function WorkPage() {
-  const [caseStudies, products] = await Promise.all([
-    getCaseStudies(),
-    getProducts(),
-  ]);
-
+export default function WorkPage() {
   return (
     <>
       <section className="page-shell pb-14 sm:pb-16">
-        <p className="eyebrow">Selected work</p>
+        <p className="eyebrow">Work experience</p>
         <div className="mt-5 grid gap-8 lg:grid-cols-[1.1fr_0.9fr] lg:items-end">
-          <h1 className="display-title">Products that made it past the mockup.</h1>
+          <h1 className="display-title">
+            Building products from first prototype to production.
+          </h1>
           <p className="lede max-w-xl lg:justify-self-end">
-            Professional work measured by adoption, delivery, and operational
-            impact—plus independent products from Lone Dream Studio.
+            My experience spans independent products, AI-assisted creative
+            tools, education platforms, e-commerce, and the systems that keep
+            them running.
           </p>
         </div>
       </section>
 
-      <section className="container max-w-7xl pb-20 sm:pb-28">
-        <div className="grid gap-8">
-          {caseStudies.map(({ metadata }) => (
-            <CaseStudyCard key={metadata.slug} study={metadata} />
-          ))}
-        </div>
-      </section>
+      <section
+        className="container max-w-7xl pb-20 sm:pb-28"
+        aria-labelledby="experience-heading"
+      >
+        <h2 id="experience-heading" className="sr-only">
+          Professional experience
+        </h2>
+        <ol className="relative mx-auto max-w-5xl before:absolute before:bottom-2 before:left-[0.4375rem] before:top-2 before:w-px before:bg-border md:before:left-[14.4375rem]">
+          {workExperience.map((experience) => (
+            <li
+              key={`${experience.company}-${experience.startDate}`}
+              className="relative grid gap-5 pb-14 pl-10 last:pb-0 md:grid-cols-[12.5rem_1fr] md:gap-16 md:pl-0"
+            >
+              <span
+                aria-hidden="true"
+                className="absolute left-0 top-2 z-10 size-4 rounded-full border-4 border-background bg-primary ring-1 ring-border md:left-[14rem]"
+              />
 
-      <section className="border-y border-border bg-foreground text-background">
-        <div className="page-shell">
-          <div className="grid gap-7 md:grid-cols-[1fr_0.8fr] md:items-end">
-            <div>
-              <p className="text-xs font-bold uppercase tracking-[0.18em] text-secondary">
-                Lone Dream Studio
-              </p>
-              <h2 className="section-title mt-4">Products and experiments.</h2>
-            </div>
-            <p className="leading-7 text-background/70 md:justify-self-end">
-              The product lab is where I test ideas, explore new technology, and
-              experience the full journey from concept to release.
-            </p>
-          </div>
-          <div className="mt-12 grid gap-6 md:grid-cols-2 lg:grid-cols-3">
-            {products.map(({ metadata }) => (
-              <ProductCard key={metadata.slug} product={metadata} />
-            ))}
-          </div>
-        </div>
+              <div className="md:pt-1 md:text-right">
+                <p className="font-display text-sm font-bold">
+                  {experience.dateLabel}
+                </p>
+                {experience.location && (
+                  <p className="mt-1 text-sm text-muted-foreground">
+                    {experience.location}
+                  </p>
+                )}
+              </div>
+
+              <article className="surface p-6 sm:p-8">
+                <p className="eyebrow">{experience.role}</p>
+                <h3 className="mt-3 text-3xl font-bold tracking-[-0.03em] sm:text-4xl">
+                  {experience.companyUrl ? (
+                    <a
+                      href={experience.companyUrl}
+                      target="_blank"
+                      rel="noreferrer"
+                      className="inline-flex items-baseline gap-2 transition-colors hover:text-primary"
+                    >
+                      {experience.company}
+                      <span
+                        aria-hidden="true"
+                        className="text-lg text-primary sm:text-xl"
+                      >
+                        ↗
+                      </span>
+                    </a>
+                  ) : (
+                    experience.company
+                  )}
+                </h3>
+
+                <ul className="mt-7 grid gap-4">
+                  {experience.achievements.map((achievement) => (
+                    <li
+                      key={achievement}
+                      className="grid grid-cols-[auto_1fr] gap-3 leading-7 text-muted-foreground"
+                    >
+                      <span
+                        aria-hidden="true"
+                        className="mt-[0.65rem] size-1.5 rounded-full bg-secondary"
+                      />
+                      <span>{achievement}</span>
+                    </li>
+                  ))}
+                </ul>
+
+                {experience.links && experience.links.length > 0 && (
+                  <div
+                    className="mt-8 flex flex-wrap gap-2 border-t border-border pt-6"
+                    aria-label={`${experience.company} product links`}
+                  >
+                    {experience.links.map((link) => (
+                      <a
+                        key={link.href}
+                        href={link.href}
+                        target="_blank"
+                        rel="noreferrer"
+                        className="tag transition-colors hover:border-foreground hover:text-foreground"
+                      >
+                        {link.label} <span aria-hidden="true">↗</span>
+                      </a>
+                    ))}
+                  </div>
+                )}
+              </article>
+            </li>
+          ))}
+        </ol>
       </section>
     </>
   );

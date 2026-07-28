@@ -9,25 +9,6 @@ export const metadata: Metadata = {
   alternates: { canonical: "/about" },
 };
 
-const experience = [
-  {
-    company: "Y Lift",
-    role: "Full-stack Developer",
-    time: "2024–Present",
-    description:
-      "Leading front-end delivery across an e-commerce experience and three internal applications, with a focus on reusable systems and maintainable delivery.",
-    image: "/images/logos/ys_logo.png",
-  },
-  {
-    company: "BLAST",
-    role: "Full-stack Engineer",
-    time: "2021–Present",
-    description:
-      "Building mobile, analytics, reporting, AI-assisted transcription, and identity workflows for a bilingual education platform.",
-    image: "/images/logos/blast_logo.png",
-  },
-];
-
 const strengths = [
   ["Product judgment", "Turning unclear requests into a focused, useful first release."],
   ["Cross-platform delivery", "Building connected web and mobile experiences with shared product thinking."],
@@ -122,46 +103,6 @@ export default function AboutPage() {
               </p>
             </article>
           ))}
-        </div>
-      </section>
-
-      <section
-        id="experience"
-        className="scroll-mt-28 border-y border-border bg-foreground text-background"
-      >
-        <div className="page-shell">
-          <p className="text-xs font-bold uppercase tracking-[0.18em] text-secondary">
-            Experience
-          </p>
-          <h2 className="section-title mt-4">Work that reaches people.</h2>
-          <div className="mt-12 grid gap-5">
-            {experience.map((item) => (
-              <article
-                key={item.company}
-                className="grid gap-6 rounded-[2rem] border border-white/15 p-7 sm:grid-cols-[auto_1fr_auto] sm:items-center sm:p-9"
-              >
-                <div className="flex size-20 items-center justify-center rounded-2xl bg-white p-3">
-                  <Image
-                    src={item.image}
-                    alt={`${item.company} logo`}
-                    width={64}
-                    height={64}
-                    className="max-h-14 w-auto object-contain"
-                  />
-                </div>
-                <div>
-                  <h3 className="text-2xl font-bold">{item.company}</h3>
-                  <p className="mt-1 font-semibold text-secondary">{item.role}</p>
-                  <p className="mt-3 max-w-2xl leading-7 text-background/65">
-                    {item.description}
-                  </p>
-                </div>
-                <p className="text-sm font-semibold text-background/55">
-                  {item.time}
-                </p>
-              </article>
-            ))}
-          </div>
         </div>
       </section>
     </>

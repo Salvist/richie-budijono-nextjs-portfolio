@@ -16,11 +16,6 @@ const nextConfig = {
         permanent: true,
       },
       {
-        source: "/projects/:slug",
-        destination: "/work/:slug",
-        permanent: true,
-      },
-      {
         source: "/posts",
         destination: "/insights",
         permanent: true,
@@ -37,7 +32,7 @@ const nextConfig = {
       },
       {
         source: "/experience",
-        destination: "/about#experience",
+        destination: "/work",
         permanent: true,
       },
     ];

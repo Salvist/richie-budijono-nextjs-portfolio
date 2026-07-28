@@ -33,13 +33,8 @@ export default function Header() {
           <span className="flex size-10 items-center justify-center rounded-full bg-foreground text-sm font-bold text-background transition-transform group-hover:-rotate-6">
             RB
           </span>
-          <span className="hidden leading-tight sm:block">
-            <span className="block text-sm font-bold tracking-tight">
-              Richie Budijono
-            </span>
-            <span className="block text-[11px] uppercase tracking-[0.14em] text-muted-foreground">
-              Product consultant
-            </span>
+          <span className="hidden text-sm font-bold tracking-tight sm:block">
+            Richie Budijono
           </span>
         </Link>
 

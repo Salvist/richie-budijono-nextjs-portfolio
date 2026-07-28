@@ -1,9 +1,5 @@
-import {
-  CaseStudyCard,
-  InsightCard,
-  ProductCard,
-} from "@/components/content_cards";
-import { getCaseStudies, getInsights, getProducts } from "@/lib/content";
+import { InsightCard } from "@/components/content_cards";
+import { getInsights } from "@/lib/content";
 import Image from "next/image";
 import Link from "next/link";
 
@@ -62,98 +58,41 @@ const faqs = [
 ];
 
 export default async function Home() {
-  const [caseStudies, products, insights] = await Promise.all([
-    getCaseStudies(),
-    getProducts(),
-    getInsights(),
-  ]);
+  const insights = await getInsights();
 
   return (
     <>
       <section className="relative overflow-hidden">
-        <div className="page-shell grid items-center gap-14 lg:grid-cols-[1.08fr_0.92fr]">
-          <div>
+        <div
+          aria-hidden="true"
+          className="pointer-events-none absolute inset-0"
+        >
+          <div className="absolute left-1/2 top-1/2 h-[26rem] w-[42rem] -translate-x-1/2 -translate-y-1/2 rounded-full bg-primary/[0.08] blur-3xl dark:bg-primary/[0.12]" />
+          <div className="absolute -left-12 top-16 size-28 rotate-12 rounded-[2rem] bg-secondary/70 sm:left-[5%] sm:top-24 sm:size-36" />
+          <div className="absolute right-[4%] top-16 size-24 rounded-full border-[16px] border-primary/35 sm:right-[8%] sm:top-24 sm:size-36 sm:border-[22px]" />
+          <div className="absolute bottom-14 left-[9%] hidden h-8 w-24 -rotate-12 rounded-full bg-primary/70 sm:block" />
+          <div className="absolute -bottom-12 right-[7%] size-32 rotate-12 rounded-[2.5rem] border-[18px] border-secondary/45 sm:bottom-12 sm:size-40" />
+        </div>
+
+        <div className="page-shell relative z-10 text-center">
+          <div className="mx-auto max-w-5xl">
             <p className="eyebrow">Independent product consultant</p>
-            <h1 className="display-title mt-6 max-w-4xl">
-              I help founders turn product ideas into{" "}
-              <span className="text-primary">working software.</span>
+            <h1 className="display-title mt-6">
+              I turn product ideas into{" "}
+              <span className="block text-primary">working software.</span>
             </h1>
-            <p className="lede mt-8 max-w-2xl">
+            <p className="lede mx-auto mt-8 max-w-2xl">
               From early scope to production, I shape and build dependable web
               and mobile products for founders and small teams.
             </p>
-            <div className="mt-10 flex flex-col gap-3 sm:flex-row">
+            <div className="mt-10 flex flex-col justify-center gap-3 sm:flex-row">
               <Link href="/start-a-project" className="button-primary justify-center">
                 Tell me about your project <span aria-hidden>→</span>
               </Link>
               <Link href="/work" className="button-secondary justify-center">
-                See selected work
+                View my experience
               </Link>
             </div>
-            <div className="mt-10 flex items-center gap-4">
-              <span className="relative flex size-3">
-                <span className="absolute inline-flex size-full animate-ping rounded-full bg-green-500 opacity-60" />
-                <span className="relative inline-flex size-3 rounded-full bg-green-500" />
-              </span>
-              <p className="text-sm font-semibold">
-                Open to select consulting conversations
-              </p>
-            </div>
-          </div>
-
-          <div className="relative mx-auto w-full max-w-xl">
-            <div className="surface relative overflow-hidden p-7 sm:p-9">
-              <div className="absolute inset-x-0 top-0 h-2 bg-gradient-to-r from-primary via-primary to-secondary" />
-              <div className="flex items-center justify-between border-b border-border pb-5">
-                <div>
-                  <p className="eyebrow">Product partner</p>
-                  <p className="mt-1 font-bold">From ambiguity to launch</p>
-                </div>
-                <span className="flex size-11 items-center justify-center rounded-full bg-primary text-xl font-bold text-primary-foreground">
-                  ↗
-                </span>
-              </div>
-              <div className="mt-7 grid grid-cols-2 gap-4">
-                {[
-                  ["8,000+", "students supported"],
-                  ["40+", "schools reached"],
-                  ["100+", "reusable components"],
-                  ["70%", "less manual checking"],
-                ].map(([value, label], index) => (
-                  <div
-                    key={label}
-                    className={`rounded-3xl p-5 ${
-                      index === 1
-                        ? "bg-secondary text-secondary-foreground"
-                        : index === 2
-                          ? "bg-primary text-primary-foreground"
-                          : "bg-muted"
-                    }`}
-                  >
-                    <p className="font-display text-3xl font-bold tracking-tight">
-                      {value}
-                    </p>
-                    <p className="mt-1 text-xs font-semibold uppercase tracking-wider opacity-75">
-                      {label}
-                    </p>
-                  </div>
-                ))}
-              </div>
-              <div className="mt-5 rounded-3xl border border-border p-5">
-                <p className="text-xs font-bold uppercase tracking-wider text-muted-foreground">
-                  Practical range
-                </p>
-                <div className="mt-3 flex flex-wrap gap-2">
-                  {["Web", "Mobile", "AI", "Internal tools"].map((item) => (
-                    <span key={item} className="tag">
-                      {item}
-                    </span>
-                  ))}
-                </div>
-              </div>
-            </div>
-            <div className="absolute -bottom-7 -right-3 -z-10 size-36 rounded-full bg-secondary/70 blur-2xl" />
-            <div className="absolute -left-8 -top-8 -z-10 size-44 rounded-full bg-primary/30 blur-3xl" />
           </div>
         </div>
       </section>
@@ -173,29 +112,6 @@ export default async function Home() {
               {item}
             </p>
           ))}
-        </div>
-      </section>
-
-      <section className="page-shell" id="selected-work">
-        <div className="grid gap-6 md:grid-cols-[0.7fr_1.3fr] md:items-end">
-          <div>
-            <p className="eyebrow">Selected work</p>
-            <h2 className="section-title mt-4">Proof over promises.</h2>
-          </div>
-          <p className="lede max-w-2xl md:justify-self-end">
-            Product work across education, commerce, mobile, analytics, and
-            operations—measured by the systems shipped and the people they help.
-          </p>
-        </div>
-        <div className="mt-12 grid gap-8">
-          {caseStudies.slice(0, 2).map(({ metadata }) => (
-            <CaseStudyCard key={metadata.slug} study={metadata} />
-          ))}
-        </div>
-        <div className="mt-8 text-center">
-          <Link href="/work" className="button-secondary">
-            Explore all work <span aria-hidden>→</span>
-          </Link>
         </div>
       </section>
 
@@ -256,28 +172,6 @@ export default async function Home() {
               </li>
             ))}
           </ol>
-        </div>
-      </section>
-
-      <section className="border-y border-border bg-foreground text-background">
-        <div className="page-shell">
-          <div className="grid gap-8 md:grid-cols-[1fr_0.9fr] md:items-end">
-            <div>
-              <p className="text-xs font-bold uppercase tracking-[0.18em] text-secondary">
-                Lone Dream Studio
-              </p>
-              <h2 className="section-title mt-4">The product lab.</h2>
-            </div>
-            <p className="max-w-xl leading-7 text-background/70 md:justify-self-end">
-              A separate home for the apps and experiments I build to explore
-              product ideas, learn new systems, and stay close to shipping.
-            </p>
-          </div>
-          <div className="mt-12 grid gap-6 md:grid-cols-3">
-            {products.slice(0, 3).map(({ metadata }) => (
-              <ProductCard key={metadata.slug} product={metadata} />
-            ))}
-          </div>
         </div>
       </section>
 

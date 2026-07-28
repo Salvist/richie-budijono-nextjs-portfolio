@@ -14,28 +14,24 @@ const capabilities = [
     title: "Product discovery and scoping",
     description:
       "Clarify the problem, prioritize the first valuable release, identify technical risks, and turn an idea into an actionable build plan.",
-    outputs: ["Product scope", "Technical direction", "Prototype", "Delivery plan"],
   },
   {
     number: "02",
     title: "Web and mobile engineering",
     description:
       "Build production-ready product experiences with maintainable architecture, responsive interfaces, and a foundation that can grow.",
-    outputs: ["Web applications", "Mobile applications", "Design systems", "API integration"],
   },
   {
     number: "03",
     title: "AI and operational workflows",
     description:
       "Connect models, data, and internal processes in ways that improve the product without making the experience fragile or confusing.",
-    outputs: ["AI features", "Internal tools", "Automation", "Data workflows"],
   },
   {
     number: "04",
     title: "Launch and product improvement",
     description:
       "Prepare a product for production, improve an existing codebase, and build the next release around what users and the business actually need.",
-    outputs: ["Launch readiness", "Modernization", "Performance", "Iteration"],
   },
 ];
 
@@ -73,26 +69,26 @@ export default function ServicesPage() {
       </section>
 
       <section className="container max-w-7xl pb-20 sm:pb-28">
-        <div className="grid gap-px overflow-hidden rounded-[2rem] border border-border bg-border lg:grid-cols-2">
+        <div className="grid gap-5 sm:gap-6">
           {capabilities.map((capability) => (
-            <article key={capability.number} className="bg-card p-7 sm:p-10">
-              <div className="flex items-start justify-between gap-5">
-                <h2 className="max-w-md text-3xl font-bold tracking-tight">
+            <article
+              key={capability.number}
+              className="group relative grid grid-cols-[auto_minmax(0,1fr)] gap-5 overflow-hidden rounded-[2rem] border border-border bg-card/95 p-7 shadow-[0_18px_60px_hsl(var(--foreground)/0.06)] transition-colors duration-300 hover:bg-primary/[0.035] sm:p-10 lg:grid-cols-[5rem_minmax(0,1fr)] lg:items-start lg:gap-8 dark:hover:bg-primary/[0.06]"
+            >
+              <span
+                aria-hidden="true"
+                className="absolute inset-y-0 left-0 w-1 origin-center scale-y-0 bg-secondary transition-transform duration-300 group-hover:scale-y-100 motion-reduce:transition-none"
+              />
+              <span className="flex size-12 items-center justify-center rounded-full border border-primary/25 bg-primary/[0.08] font-display text-sm font-bold text-primary transition-colors duration-300 group-hover:border-primary group-hover:bg-primary group-hover:text-primary-foreground motion-reduce:transition-none">
+                {capability.number}
+              </span>
+              <div className="min-w-0 transition-transform duration-300 group-hover:translate-x-1 motion-reduce:transform-none motion-reduce:transition-none">
+                <h2 className="max-w-xl text-2xl font-bold tracking-tight sm:text-3xl">
                   {capability.title}
                 </h2>
-                <span className="font-display text-sm font-bold text-primary">
-                  {capability.number}
-                </span>
-              </div>
-              <p className="mt-5 max-w-xl leading-7 text-muted-foreground">
-                {capability.description}
-              </p>
-              <div className="mt-7 flex flex-wrap gap-2">
-                {capability.outputs.map((output) => (
-                  <span key={output} className="tag">
-                    {output}
-                  </span>
-                ))}
+                <p className="mt-4 max-w-2xl leading-7 text-muted-foreground">
+                  {capability.description}
+                </p>
               </div>
             </article>
           ))}

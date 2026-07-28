@@ -124,6 +124,11 @@
     @apply container max-w-7xl py-20 sm:py-28;
   }
 
+  main > .page-shell:first-child,
+  main > :first-child > .page-shell {
+    @apply pt-10 sm:pt-16;
+  }
+
   .eyebrow {
     @apply text-xs font-bold uppercase tracking-[0.18em] text-primary;
   }
