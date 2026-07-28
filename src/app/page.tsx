@@ -76,8 +76,7 @@ export default async function Home() {
 
         <div className="page-shell relative z-10 text-center">
           <div className="mx-auto max-w-5xl">
-            <p className="eyebrow">Independent product consultant</p>
-            <h1 className="display-title mt-6">
+            <h1 className="display-title">
               I turn product ideas into{" "}
               <span className="block text-primary">working software.</span>
             </h1>
