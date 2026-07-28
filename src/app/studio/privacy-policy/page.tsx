@@ -13,13 +13,13 @@ export async function generateMetadata(): Promise<Metadata> {
   return {
     title: policy.metadata.title,
     description: policy.metadata.description,
-    alternates: { canonical: "/privacy-policy" },
+    alternates: { canonical: "/studio/privacy-policy" },
     openGraph: {
       type: "article",
       title: policy.metadata.title,
       description: policy.metadata.description,
       modifiedTime: policy.metadata.effectiveDate,
-      url: "/privacy-policy",
+      url: "/studio/privacy-policy",
     },
   };
 }

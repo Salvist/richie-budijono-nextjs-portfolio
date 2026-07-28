@@ -24,7 +24,7 @@ export default function Footer() {
           <div>
             <p className="eyebrow">Lone Dream Studio</p>
             <div className="mt-4 grid gap-2 text-sm">
-              <Link href="/privacy-policy">Privacy Policy</Link>
+              <Link href="/studio/privacy-policy">Privacy Policy</Link>
             </div>
           </div>
           <div>
