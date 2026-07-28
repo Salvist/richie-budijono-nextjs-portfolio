@@ -1,6 +1,7 @@
 import { getStudioProducts, type ProductMetadata } from "@/lib/content";
 import type { Metadata } from "next";
 import Image from "next/image";
+import Link from "next/link";
 import styles from "./studio.module.css";
 
 export const metadata: Metadata = {
@@ -366,6 +367,30 @@ export default async function StudioPage() {
           </div>
         </section>
       )}
+
+      <section className={styles.cta} aria-labelledby="studio-cta-heading">
+        <div className={`container max-w-7xl ${styles.ctaInner}`}>
+          <div className={styles.ctaGlow} aria-hidden="true" />
+          <div className={styles.ctaOrbit} aria-hidden="true" />
+
+          <div className={styles.ctaCopy}>
+            <p className={styles.sectionLabel}>Build with the studio</p>
+            <h2 id="studio-cta-heading">
+              Want to see your app idea out in the world?
+            </h2>
+            <p>
+              I help founders turn promising ideas into focused products—from
+              shaping the first release to building and launching it.
+            </p>
+          </div>
+
+          <div className={styles.ctaAction}>
+            <Link href="/start-a-project" className={styles.ctaButton}>
+              Start a project <span aria-hidden="true">→</span>
+            </Link>
+          </div>
+        </div>
+      </section>
 
       <script
         type="application/ld+json"

@@ -28,14 +28,9 @@ export default function Header() {
         <Link
           href="/"
           onClick={() => setIsOpen(false)}
-          className="group flex items-center gap-3"
+          className="text-sm font-bold tracking-tight transition-colors hover:text-primary"
         >
-          <span className="flex size-10 items-center justify-center rounded-full bg-foreground text-sm font-bold text-background transition-transform group-hover:-rotate-6">
-            RB
-          </span>
-          <span className="hidden text-sm font-bold tracking-tight sm:block">
-            Richie Budijono
-          </span>
+          Richie Budijono
         </Link>
 
         <ul
