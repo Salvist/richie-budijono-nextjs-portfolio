@@ -3,10 +3,18 @@
 import { useTheme } from "next-themes";
 import DarkModeIcon from "@mui/icons-material/DarkMode";
 import LightModeIcon from "@mui/icons-material/LightMode";
+import { useSyncExternalStore } from "react";
+
+const subscribe = () => () => {};
 
 export default function ThemeToggle() {
   const { setTheme, resolvedTheme } = useTheme();
-  const isDark = resolvedTheme === "dark";
+  const mounted = useSyncExternalStore(
+    subscribe,
+    () => true,
+    () => false,
+  );
+  const isDark = mounted && resolvedTheme === "dark";
 
   return (
     <button
@@ -15,13 +23,13 @@ export default function ThemeToggle() {
         setTheme(isDark ? "light" : "dark");
       }}
       className="flex size-10 items-center justify-center rounded-full border border-transparent transition-colors hover:border-border hover:bg-muted"
+      aria-label="Toggle theme"
     >
       {isDark ? (
         <LightModeIcon fontSize="small" />
       ) : (
         <DarkModeIcon fontSize="small" />
       )}
-      <span className="sr-only">Toggle theme</span>
     </button>
   );
 }

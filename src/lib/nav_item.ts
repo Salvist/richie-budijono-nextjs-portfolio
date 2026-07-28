@@ -9,6 +9,10 @@ export const navItems: NavItem[] = [
     path: "/work",
   },
   {
+    name: "Studio",
+    path: "/studio",
+  },
+  {
     name: "Services",
     path: "/services",
   },

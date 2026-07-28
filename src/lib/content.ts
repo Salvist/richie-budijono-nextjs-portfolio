@@ -19,17 +19,92 @@ export const caseStudyMetadataSchema = z.object({
   slug: requiredText,
 });
 
-export const productMetadataSchema = z.object({
-  title: requiredText,
-  summary: requiredText,
-  status: z.enum(["active", "shipped", "experiment", "archived"]),
-  platforms: z.array(requiredText).min(1),
-  technologies: z.array(requiredText).min(1),
-  productUrl: z.string().url().optional(),
-  sourceUrl: z.string().url().optional(),
-  coverImage: requiredText,
-  slug: requiredText,
+const httpsUrl = z
+  .string()
+  .url()
+  .refine((value) => new URL(value).protocol === "https:", {
+    message: "Store links must use HTTPS.",
+  });
+
+const storeLinkSchema = z.object({
+  platform: z.enum(["iOS", "Android"]),
+  label: requiredText,
+  href: httpsUrl,
 });
+
+const showcaseImageSchema = z.object({
+  src: requiredText,
+  alt: requiredText,
+});
+
+export const productMetadataSchema = z
+  .object({
+    title: requiredText,
+    summary: requiredText,
+    status: z.enum(["active", "shipped", "experiment", "archived"]),
+    platforms: z.array(requiredText).min(1),
+    technologies: z.array(requiredText).min(1),
+    productUrl: z.string().url().optional(),
+    sourceUrl: z.string().url().optional(),
+    coverImage: requiredText,
+    studioPlacement: z
+      .enum(["featured", "earlier", "hidden"])
+      .default("hidden"),
+    studioOrder: z.number().int().nonnegative().default(999),
+    benefit: requiredText.optional(),
+    highlights: z.array(requiredText).default([]),
+    storeLinks: z.array(storeLinkSchema).default([]),
+    showcaseImages: z.array(showcaseImageSchema).default([]),
+    accent: z
+      .enum(["manna", "tracku", "church", "unsaid", "neutral"])
+      .default("neutral"),
+    slug: requiredText,
+  })
+  .superRefine((product, context) => {
+    if (product.studioPlacement === "hidden") return;
+
+    if (!product.benefit) {
+      context.addIssue({
+        code: z.ZodIssueCode.custom,
+        path: ["benefit"],
+        message: "Studio products require a benefit.",
+      });
+    }
+
+    if (product.storeLinks.length === 0) {
+      context.addIssue({
+        code: z.ZodIssueCode.custom,
+        path: ["storeLinks"],
+        message: "Studio products require at least one store link.",
+      });
+    }
+
+    if (product.studioPlacement === "featured") {
+      if (product.highlights.length !== 3) {
+        context.addIssue({
+          code: z.ZodIssueCode.custom,
+          path: ["highlights"],
+          message: "Featured Studio products require exactly three highlights.",
+        });
+      }
+
+      if (product.showcaseImages.length < 2) {
+        context.addIssue({
+          code: z.ZodIssueCode.custom,
+          path: ["showcaseImages"],
+          message: "Featured Studio products require at least two images.",
+        });
+      }
+
+      if (product.accent === "neutral") {
+        context.addIssue({
+          code: z.ZodIssueCode.custom,
+          path: ["accent"],
+          message: "Featured Studio products require a named accent.",
+        });
+      }
+    }
+  });
 
 export const insightMetadataSchema = z.object({
   title: requiredText,
@@ -52,10 +127,10 @@ export type ContentEntry<T> = {
 
 const contentRoot = path.join(process.cwd(), "src", "content");
 
-async function readCollection<T>(
+async function readCollection<TSchema extends z.ZodTypeAny>(
   directory: string,
-  schema: z.ZodType<T>,
-): Promise<ContentEntry<T>[]> {
+  schema: TSchema,
+): Promise<ContentEntry<z.output<TSchema>>[]> {
   const directoryPath = path.join(contentRoot, directory);
   const files = (await fs.readdir(directoryPath)).filter((file) =>
     file.endsWith(".mdx"),
@@ -102,6 +177,20 @@ export async function getProducts(): Promise<ContentEntry<ProductMetadata>[]> {
     const rank = { active: 0, shipped: 1, experiment: 2, archived: 3 };
     return rank[a.metadata.status] - rank[b.metadata.status];
   });
+}
+
+export async function getStudioProducts(
+  placement?: "featured" | "earlier",
+): Promise<ContentEntry<ProductMetadata>[]> {
+  const products = await getProducts();
+
+  return products
+    .filter(({ metadata }) =>
+      placement
+        ? metadata.studioPlacement === placement
+        : metadata.studioPlacement !== "hidden",
+    )
+    .sort((a, b) => a.metadata.studioOrder - b.metadata.studioOrder);
 }
 
 export async function getInsights(): Promise<

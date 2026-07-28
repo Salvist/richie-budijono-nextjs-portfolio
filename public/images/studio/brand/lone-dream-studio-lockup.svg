@@ -1,0 +1,29 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1180 320" role="img" aria-labelledby="title description">
+  <title id="title">Lone Dream Studio</title>
+  <desc id="description">Lone Dream Studio wordmark with an illuminated doorway and orbit.</desc>
+  <defs>
+    <linearGradient id="orbit" x1="30" y1="42" x2="278" y2="278" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#9B87FF"/>
+      <stop offset=".52" stop-color="#6EE7F2"/>
+      <stop offset="1" stop-color="#FFB86B"/>
+    </linearGradient>
+    <linearGradient id="door" x1="160" y1="72" x2="160" y2="232" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#F7FBFF"/>
+      <stop offset=".48" stop-color="#AEEBFF"/>
+      <stop offset="1" stop-color="#8A78FF"/>
+    </linearGradient>
+    <style>
+      .wordmark { fill: #101933; }
+      @media (prefers-color-scheme: dark) { .wordmark { fill: #F4F7FF; } }
+    </style>
+  </defs>
+  <g>
+    <path d="M239 77c-18-18-45-30-75-33 43 22 68 64 58 106-10 50-58 83-108 73-30-6-55-28-66-54 3 56 45 104 102 113 66 10 129-35 139-101 7-41-8-78-37-104h-13Z" fill="url(#orbit)" opacity=".26"/>
+    <ellipse cx="160" cy="160" rx="132" ry="89" transform="rotate(-18 160 160)" fill="none" stroke="url(#orbit)" stroke-width="9" stroke-linecap="round" stroke-dasharray="565 80"/>
+    <path d="M113 236v-93c0-40 20-70 47-70s47 30 47 70v93h-94Z" fill="url(#door)"/>
+    <path d="M138 236v-89c0-24 9-41 22-41s22 17 22 41v89h-44Z" fill="#101933" opacity=".92"/>
+    <circle cx="257" cy="74" r="10" fill="#F7FBFF"/>
+  </g>
+  <text class="wordmark" x="338" y="153" font-family="Space Grotesk, Arial, sans-serif" font-size="76" font-weight="700" letter-spacing="-3">Lone Dream</text>
+  <text class="wordmark" x="342" y="217" font-family="Space Grotesk, Arial, sans-serif" font-size="39" font-weight="600" letter-spacing="13">STUDIO</text>
+</svg>

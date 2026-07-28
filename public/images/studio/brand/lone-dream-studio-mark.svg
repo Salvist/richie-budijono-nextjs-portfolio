@@ -1,0 +1,27 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 256" role="img" aria-labelledby="title description">
+  <title id="title">Lone Dream Studio mark</title>
+  <desc id="description">An illuminated doorway surrounded by a single orbit and crescent.</desc>
+  <defs>
+    <linearGradient id="orbit" x1="28" y1="34" x2="224" y2="220" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#9B87FF"/>
+      <stop offset=".52" stop-color="#6EE7F2"/>
+      <stop offset="1" stop-color="#FFB86B"/>
+    </linearGradient>
+    <linearGradient id="door" x1="128" y1="60" x2="128" y2="186" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#F7FBFF"/>
+      <stop offset=".48" stop-color="#AEEBFF"/>
+      <stop offset="1" stop-color="#8A78FF"/>
+    </linearGradient>
+    <radialGradient id="glow" cx="0" cy="0" r="1" gradientTransform="matrix(0 64 -64 0 128 139)" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#6EE7F2" stop-opacity=".72"/>
+      <stop offset="1" stop-color="#6EE7F2" stop-opacity="0"/>
+    </radialGradient>
+  </defs>
+  <circle cx="128" cy="139" r="64" fill="url(#glow)"/>
+  <path d="M191 59c-14-14-35-24-59-26 34 17 53 50 46 83-8 39-46 65-85 57-24-5-43-22-52-42 2 44 35 82 80 89 52 8 101-28 109-80 5-32-6-61-29-81h-10Z" fill="url(#orbit)" opacity=".28"/>
+  <ellipse cx="128" cy="128" rx="104" ry="70" transform="rotate(-18 128 128)" fill="none" stroke="url(#orbit)" stroke-width="7" stroke-linecap="round" stroke-dasharray="445 62"/>
+  <path d="M91 188v-73c0-32 16-55 37-55s37 23 37 55v73H91Z" fill="url(#door)"/>
+  <path d="M111 188v-70c0-19 7-32 17-32s17 13 17 32v70h-34Z" fill="#101933" opacity=".92"/>
+  <circle cx="204" cy="61" r="8" fill="#F7FBFF"/>
+  <path d="m204 45 3 11 11 3-11 3-3 11-3-11-11-3 11-3 3-11Z" fill="#F7FBFF" opacity=".55"/>
+</svg>

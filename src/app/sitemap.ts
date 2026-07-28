@@ -7,7 +7,15 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   ).replace(/\/$/, "");
   const insights = await getInsights();
 
-  const staticRoutes = ["", "/work", "/services", "/insights", "/about", "/start-a-project"];
+  const staticRoutes = [
+    "",
+    "/work",
+    "/studio",
+    "/services",
+    "/insights",
+    "/about",
+    "/start-a-project",
+  ];
 
   return [
     ...staticRoutes.map((route) => ({
