@@ -54,9 +54,9 @@ export default function ServicesPage() {
     <>
       <section className="page-shell pb-16">
         <p className="eyebrow">Services</p>
-        <div className="mt-5 grid gap-8 lg:grid-cols-[1.1fr_0.9fr] lg:items-end">
+        <div className="mt-5 grid grid-cols-1 gap-8">
           <h1 className="display-title">Product thinking, backed by hands-on engineering.</h1>
-          <div className="max-w-xl lg:justify-self-end">
+          <div className="max-w-xl">
             <p className="lede">
               I work with founders and small teams from early product questions
               through production—without separating strategy from delivery.

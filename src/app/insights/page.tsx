@@ -15,9 +15,9 @@ export default async function InsightsPage() {
   return (
     <section className="page-shell">
       <p className="eyebrow">Insights</p>
-      <div className="mt-5 grid gap-8 lg:grid-cols-[1fr_0.8fr] lg:items-end">
+      <div className="mt-5 grid grid-cols-1 gap-8">
         <h1 className="display-title">Notes from building the real thing.</h1>
-        <p className="lede max-w-xl lg:justify-self-end">
+        <p className="lede max-w-xl">
           Practical lessons about product engineering, decisions, mistakes, and
           the systems behind useful software.
         </p>
