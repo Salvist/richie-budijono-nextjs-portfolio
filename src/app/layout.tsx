@@ -44,7 +44,7 @@ export default function RootLayout({
       >
         <Providers>
           <Header />
-          <main className="grow">{children}</main>
+          <main className="-mt-16 grow">{children}</main>
           <Footer />
         </Providers>
       </body>

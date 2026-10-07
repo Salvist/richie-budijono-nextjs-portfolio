@@ -18,7 +18,12 @@ export default function ThemeToggle() {
         setTheme(isDark ? "light" : "dark");
       }}
     >
-      {isDark ? <LightModeIcon /> : <DarkModeIcon />}
+      <span aria-hidden="true" className="hidden dark:inline-flex">
+        <LightModeIcon />
+      </span>
+      <span aria-hidden="true" className="inline-flex dark:hidden">
+        <DarkModeIcon />
+      </span>
       <span className="sr-only">Toggle theme</span>
     </Button>
   );
