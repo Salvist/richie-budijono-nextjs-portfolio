@@ -1,6 +1,58 @@
 import ExperienceTile, { ExperienceData } from "@/components/experience_tile";
 
 export default function ExperienceDevPage() {
+  const loneDreamExperience: ExperienceData = {
+    companyName: "Lone Dream Studio",
+    roleName: "Founder",
+    duration: "Jan 2026 - Present",
+    location: "New York, NY",
+    initials: "LDS",
+    achievements: [
+      "Built and launched Daily Manna, a Bible reading companion with in-depth progress tracking and an app blocker. The app has reached 1,000+ downloads.",
+      "Developed and released TrackU, a personalized finance app with receipt and statement scanning.",
+    ],
+    links: [
+      {
+        url: "https://www.richiebudijono.com/studio",
+        type: "link",
+        label: "Lone Dream Studio",
+      },
+      {
+        url: "https://mannahabit.com/",
+        type: "link",
+        label: "Daily Manna",
+      },
+      {
+        url: "https://apps.apple.com/us/app/daily-manna-bible-habit/id6762305492",
+        type: "app-store",
+        label: "Daily Manna on the App Store",
+      },
+      {
+        url: "https://play.google.com/store/apps/details?id=com.lonedreamstudio.daily_manna",
+        type: "google-play",
+        label: "Daily Manna on Google Play",
+      },
+      {
+        url: "https://www.instagram.com/dailymanna.bible",
+        type: "link",
+        label: "Daily Manna on Instagram",
+      },
+    ],
+  };
+
+  const lavaExperience: ExperienceData = {
+    companyName: "Lava Studios",
+    roleName: "Software Developer (Contract)",
+    duration: "Mar 2025 - Present",
+    location: "Remote",
+    initials: "LS",
+    achievements: [
+      "Built Character Studio, an end-to-end AI pipeline that transforms user prompts into fully animated videos by generating characters, multi-scene storyboards, AI-animated clips, and a stitched final video.",
+      "Built and maintained database infrastructure, including schema design, automated backups, and security best practices.",
+      "Implemented SMS-based two-factor authentication (2FA) to improve platform security and user trust.",
+    ],
+  };
+
   const yLiftExperience: ExperienceData = {
     companyName: "Y Lift",
     roleName: "Full-stack Developer",
@@ -42,15 +94,46 @@ export default function ExperienceDevPage() {
     ],
   };
 
-  const experiences = [yLiftExperience, blastExperience];
+  const fiveGenExperience: ExperienceData = {
+    companyName: "5 Gen Solutions",
+    roleName: "Web Developer Intern",
+    duration: "Aug 2021 - Nov 2021",
+    initials: "5G",
+    achievements: [
+      "Developed a web platform using Bubble.io.",
+      "Designed filtering and search interfaces for a catalog of devices.",
+      "Helped test a payment system using PayPal.",
+    ],
+  };
+
+  const mthreeExperience: ExperienceData = {
+    companyName: "mthree",
+    roleName: "Salesforce Developer Apprenticeship",
+    duration: "Aug 2021 - Sep 2021",
+    initials: "m3",
+    achievements: [
+      "Completed six weeks of intensive Salesforce and customer relationship management (CRM) training.",
+      "Learned to develop solutions on the Salesforce platform.",
+      "Built a credit card system with another team member using Salesforce.",
+    ],
+  };
+
+  const experiences = [
+    loneDreamExperience,
+    lavaExperience,
+    yLiftExperience,
+    blastExperience,
+    fiveGenExperience,
+    mthreeExperience,
+  ];
 
   return (
     <section className="mt-28">
       <div className="container max-w-3xl">
         <h1 className="title">Experience</h1>
         <div className="mt-8 space-y-6">
-          {experiences.map((experience, index) => (
-            <ExperienceTile key={index} experience={experience} />
+          {experiences.map((experience) => (
+            <ExperienceTile key={experience.companyName} experience={experience} />
           ))}
         </div>
       </div>

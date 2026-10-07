@@ -31,20 +31,34 @@ const LinkIcon = () => (
 export interface ExperienceLink {
   url: string;
   type: "app-store" | "google-play" | "link";
+  label?: string;
 }
 
 export interface ExperienceData {
   companyName: string;
   roleName: string;
   duration: string;
-  logoPath: string;
-  logoAlt: string;
+  location?: string;
+  logoPath?: string;
+  logoAlt?: string;
+  initials?: string;
   achievements: string[];
   links?: ExperienceLink[];
 }
 
 interface ExperienceTileProps {
   experience: ExperienceData;
+}
+
+function getLinkLabel(link: ExperienceLink) {
+  return (
+    link.label ??
+    (link.type === "app-store"
+      ? "App Store"
+      : link.type === "google-play"
+      ? "Google Play"
+      : "External Link")
+  );
 }
 
 export default function ExperienceTile({ experience }: ExperienceTileProps) {
@@ -65,12 +79,12 @@ export default function ExperienceTile({ experience }: ExperienceTileProps) {
     <div className="p-6 bg-neutral-50 dark:bg-gray-800 rounded-lg shadow-lg border border-gray-200 dark:border-gray-700">
       {/* Desktop layout */}
       <div className="hidden sm:flex flex-col gap-4">
-        <div className="flex items-center justify-between">
+        <div className="flex flex-wrap items-center justify-between gap-4">
           <ExperienceHeader experience={experience} />
 
           {/* Links on the right */}
           {experience.links && experience.links.length > 0 && (
-            <div className="flex items-center gap-2">
+            <div className="flex max-w-full flex-wrap items-center gap-2">
               {experience.links.map((link, index) => (
                 <Link
                   key={index}
@@ -78,13 +92,8 @@ export default function ExperienceTile({ experience }: ExperienceTileProps) {
                   target="_blank"
                   rel="noopener noreferrer"
                   className="p-2 bg-gray-200 dark:bg-gray-600 hover:bg-gray-300 dark:hover:bg-gray-500 rounded-md transition-colors duration-200 text-gray-700 dark:text-gray-300 hover:text-gray-900 dark:hover:text-white"
-                  title={
-                    link.type === "app-store"
-                      ? "App Store"
-                      : link.type === "google-play"
-                      ? "Google Play"
-                      : "External Link"
-                  }
+                  title={getLinkLabel(link)}
+                  aria-label={getLinkLabel(link)}
                 >
                   {getLinkIcon(link.type)}
                 </Link>
@@ -94,8 +103,9 @@ export default function ExperienceTile({ experience }: ExperienceTileProps) {
         </div>
 
         {/* Duration */}
-        <div className="text-md text-gray-900 dark:text-gray-200 leading-none tracking-wide">
+        <div className="text-md text-gray-900 dark:text-gray-200 leading-relaxed tracking-wide">
           {experience.duration}
+          {experience.location && ` · ${experience.location}`}
         </div>
 
         {/* Bullet points */}
@@ -116,14 +126,15 @@ export default function ExperienceTile({ experience }: ExperienceTileProps) {
         {/* Header with logo and name */}
         <div className="mb-4">
           <ExperienceHeader experience={experience} />
-          <div className="text-sm text-gray-600 dark:text-gray-400 leading-none mt-2">
+          <div className="text-sm text-gray-600 dark:text-gray-400 leading-relaxed mt-2">
             {experience.duration}
+            {experience.location && ` · ${experience.location}`}
           </div>
         </div>
 
         {/* Links below duration on mobile */}
         {experience.links && experience.links.length > 0 && (
-          <div className="flex items-center gap-2 mb-4">
+          <div className="flex flex-wrap items-center gap-2 mb-4">
             {experience.links.map((link, index) => (
               <Link
                 key={index}
@@ -131,13 +142,8 @@ export default function ExperienceTile({ experience }: ExperienceTileProps) {
                 target="_blank"
                 rel="noopener noreferrer"
                 className="p-2 bg-gray-200 dark:bg-gray-600 hover:bg-gray-300 dark:hover:bg-gray-500 rounded-md transition-colors duration-200 text-gray-700 dark:text-gray-300 hover:text-gray-900 dark:hover:text-white"
-                title={
-                  link.type === "app-store"
-                    ? "App Store"
-                    : link.type === "google-play"
-                    ? "Google Play"
-                    : "External Link"
-                }
+                title={getLinkLabel(link)}
+                aria-label={getLinkLabel(link)}
               >
                 {getLinkIcon(link.type)}
               </Link>
@@ -160,36 +166,34 @@ export default function ExperienceTile({ experience }: ExperienceTileProps) {
 }
 
 function ExperienceHeader({ experience }: ExperienceTileProps) {
-  const firstLetter = experience.companyName.charAt(0);
-  const restOfName = experience.companyName.slice(1);
   return (
-    <div className="flex flex-row items-center gap-4">
-      <div className="relative w-12 h-12 object-contain">
-        <Image
-          src={experience.logoPath}
-          alt={experience.logoAlt}
-          layout="fill"
-          objectFit="cover"
-          className="rounded-md"
-        />
+    <div className="flex min-w-0 max-w-full flex-1 basis-64 flex-row items-center gap-4">
+      <div className="relative w-12 h-12 shrink-0">
+        {experience.logoPath ? (
+          <Image
+            src={experience.logoPath}
+            alt={experience.logoAlt ?? `${experience.companyName} Logo`}
+            fill
+            sizes="48px"
+            className="rounded-md object-cover"
+          />
+        ) : (
+          <div
+            aria-hidden="true"
+            className={`flex h-full w-full items-center justify-center rounded-md bg-gray-200 text-sm font-bold text-gray-900 dark:bg-gray-600 dark:text-white ${montserrat.className}`}
+          >
+            {experience.initials ?? experience.companyName.charAt(0)}
+          </div>
+        )}
       </div>
-      <div className={`flex flex-row gap-1 ${montserrat.className}`}>
+      <div className={`flex min-w-0 flex-1 flex-col justify-center gap-1 ${montserrat.className}`}>
+        <h2 className="break-words text-2xl sm:text-3xl font-bold text-gray-900 dark:text-white leading-tight">
+          {experience.companyName}
+        </h2>
         <div
-          className={`ml-2 text-6xl font-bold text-gray-900 dark:text-white`}
+          className={`break-words text-md font-medium text-gray-900 dark:text-gray-200 leading-tight tracking-wider ${sourceSansPro.className}`}
         >
-          {firstLetter}
-        </div>
-        <div className="flex flex-col flex-1 justify-center">
-          <div
-            className={`text-3xl font-bold text-gray-900 dark:text-white leading-none tracking-widest`}
-          >
-            {restOfName}
-          </div>
-          <div
-            className={`text-md font-medium text-gray-900 dark:text-gray-200 leading-tight tracking-wider ${sourceSansPro.className}`}
-          >
-            {experience.roleName}
-          </div>
+          {experience.roleName}
         </div>
       </div>
     </div>
