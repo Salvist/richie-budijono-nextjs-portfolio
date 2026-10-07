@@ -1,5 +1,6 @@
 import Image from "next/image";
 import Link from "next/link";
+import InstagramIcon from "@mui/icons-material/Instagram";
 import { montserrat, sourceSansPro } from "@/lib/fonts";
 
 // Link icon components
@@ -30,7 +31,7 @@ const LinkIcon = () => (
 
 export interface ExperienceLink {
   url: string;
-  type: "app-store" | "google-play" | "link";
+  type: "app-store" | "google-play" | "instagram" | "link";
   label?: string;
 }
 
@@ -57,6 +58,8 @@ function getLinkLabel(link: ExperienceLink) {
       ? "App Store"
       : link.type === "google-play"
       ? "Google Play"
+      : link.type === "instagram"
+      ? "Instagram"
       : "External Link")
   );
 }
@@ -68,6 +71,8 @@ export default function ExperienceTile({ experience }: ExperienceTileProps) {
         return <AppStoreIcon />;
       case "google-play":
         return <GooglePlayIcon />;
+      case "instagram":
+        return <InstagramIcon style={{ fontSize: 20 }} />;
       case "link":
         return <LinkIcon />;
       default:

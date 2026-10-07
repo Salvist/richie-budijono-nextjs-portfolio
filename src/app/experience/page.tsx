@@ -13,11 +13,6 @@ export default function ExperienceDevPage() {
     ],
     links: [
       {
-        url: "https://www.richiebudijono.com/studio",
-        type: "link",
-        label: "Lone Dream Studio",
-      },
-      {
         url: "https://mannahabit.com/",
         type: "link",
         label: "Daily Manna",
@@ -34,7 +29,7 @@ export default function ExperienceDevPage() {
       },
       {
         url: "https://www.instagram.com/dailymanna.bible",
-        type: "link",
+        type: "instagram",
         label: "Daily Manna on Instagram",
       },
     ],

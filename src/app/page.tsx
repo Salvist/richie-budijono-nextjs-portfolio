@@ -8,8 +8,8 @@ export default function Home() {
     <section className="mt-28">
       <div className="container max-w-3xl">
         <Intro />
-        <RecentPosts />
         <RecentProjects />
+        <RecentPosts />
         <Skills />
       </div>
     </section>
