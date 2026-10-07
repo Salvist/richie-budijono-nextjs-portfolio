@@ -29,11 +29,11 @@ export async function generateMetadata(): Promise<Metadata> {
   return {
     metadataBase,
     title: {
-      default: "Richie Budijono — Independent Product Consultant",
+      default: "Richie Budijono — Software Engineer & Maker",
       template: "%s — Richie Budijono",
     },
     description:
-      "I help founders shape and build web and mobile products—from early scope to production.",
+      "Software engineer building web and mobile products. Selected projects, experience, and notes by Richie Budijono.",
     applicationName: "Richie Budijono",
     authors: [{ name: "Richie Budijono" }],
     creator: "Richie Budijono",
@@ -42,18 +42,18 @@ export async function generateMetadata(): Promise<Metadata> {
       type: "website",
       locale: "en_US",
       url: "/",
-      title: "Richie Budijono — Independent Product Consultant",
+      title: "Richie Budijono — Software Engineer & Maker",
       description:
-        "I help founders shape and build web and mobile products—from early scope to production.",
+        "Software engineer building web and mobile products. Selected projects, experience, and notes by Richie Budijono.",
       siteName: "Richie Budijono",
-      images: [{ url: "/og.png", width: 1200, height: 630 }],
+      images: [{ url: "/opengraph-image", width: 1200, height: 630 }],
     },
     twitter: {
       card: "summary_large_image",
-      title: "Richie Budijono — Independent Product Consultant",
+      title: "Richie Budijono — Software Engineer & Maker",
       description:
-        "I help founders shape and build web and mobile products—from early scope to production.",
-      images: ["/og.png"],
+        "Software engineer building web and mobile products. Selected projects, experience, and notes by Richie Budijono.",
+      images: ["/opengraph-image"],
     },
   };
 }
@@ -65,17 +65,9 @@ const structuredData = {
       "@type": "Person",
       "@id": "#richie",
       name: "Richie Budijono",
-      jobTitle: "Independent Product Consultant",
+      jobTitle: "Software Engineer & Maker",
       url: "/",
       sameAs: ["https://github.com/Salvist"],
-    },
-    {
-      "@type": "Service",
-      name: "Product consulting and engineering",
-      description:
-        "Product discovery, web and mobile engineering, integrations, and launch support for founders and small teams.",
-      provider: { "@id": "#richie" },
-      areaServed: "Worldwide",
     },
   ],
 };
@@ -94,7 +86,7 @@ export default function RootLayout({
       <body className="flex min-h-screen flex-col antialiased">
         <Providers>
           <Header />
-          <main className="grow pt-20">{children}</main>
+          <main id="main-content" tabIndex={-1} className="grow">{children}</main>
           <Footer />
         </Providers>
         <script
@@ -107,3 +99,4 @@ export default function RootLayout({
     </html>
   );
 }
+

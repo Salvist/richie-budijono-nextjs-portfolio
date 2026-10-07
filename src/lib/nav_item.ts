@@ -1,27 +1,8 @@
-export interface NavItem {
-  name: string;
-  path: string;
-}
-
+export interface NavItem { name: string; path: string; }
 export const navItems: NavItem[] = [
-  {
-    name: "Experience",
-    path: "/work",
-  },
-  {
-    name: "Studio",
-    path: "/studio",
-  },
-  {
-    name: "Services",
-    path: "/services",
-  },
-  {
-    name: "Insights",
-    path: "/insights",
-  },
-  {
-    name: "About",
-    path: "/about",
-  },
+  { name: "Projects", path: "/projects" },
+  { name: "Experience", path: "/work" },
+  { name: "Writing", path: "/insights" },
+  { name: "About", path: "/about" },
 ];
+

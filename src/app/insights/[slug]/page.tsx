@@ -38,12 +38,12 @@ export default async function InsightPage({ params }: Props) {
 
   return (
     <article className="page-shell">
-      <div className="mx-auto max-w-4xl">
+      <div className="reading-column">
         <Link
           href="/insights"
           className="inline-flex items-center gap-2 text-sm font-bold text-muted-foreground hover:text-foreground"
         >
-          <span aria-hidden>←</span> Back to insights
+          <span aria-hidden>←</span> Back to writing
         </Link>
         <div className="mt-10">
           <div className="flex flex-wrap gap-2">
@@ -53,7 +53,7 @@ export default async function InsightPage({ params }: Props) {
               </span>
             ))}
           </div>
-          <h1 className="mt-6 font-display text-4xl font-bold leading-tight tracking-[-0.04em] sm:text-6xl">
+          <h1 className="display-title mt-6">
             {insight.metadata.title}
           </h1>
           <p className="lede mt-6">{insight.metadata.summary}</p>
@@ -68,8 +68,8 @@ export default async function InsightPage({ params }: Props) {
             src={insight.metadata.coverImage}
             alt=""
             fill
-            priority
-            sizes="(min-width: 1024px) 896px, 100vw"
+            preload
+            sizes="(min-width: 1024px) 720px, 100vw"
             className="object-cover"
           />
         </div>
@@ -80,3 +80,4 @@ export default async function InsightPage({ params }: Props) {
     </article>
   );
 }
+

@@ -10,6 +10,8 @@ const nextConfig = {
   },
   async redirects() {
     return [
+      { source: "/services", destination: "/projects", permanent: true },
+      { source: "/start-a-project", destination: "/about#contact", permanent: true },
       {
         source: "/posts",
         destination: "/insights",

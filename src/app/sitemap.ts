@@ -1,42 +1,19 @@
-import { getInsights, getProducts } from "@/lib/content";
+import { getCaseStudies, getInsights, getProducts } from "@/lib/content";
 import type { MetadataRoute } from "next";
 
 export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
-  const baseUrl = (
-    process.env.NEXT_PUBLIC_SITE_URL ?? "http://localhost:3000"
-  ).replace(/\/$/, "");
-  const [insights, projects] = await Promise.all([
-    getInsights(),
-    getProducts(),
-  ]);
-
-  const staticRoutes = [
-    "",
-    "/work",
-    "/studio",
-    "/services",
-    "/insights",
-    "/about",
-    "/start-a-project",
-    "/studio/privacy-policy",
-  ];
-
+  const baseUrl = (process.env.NEXT_PUBLIC_SITE_URL ?? "https://www.richiebudijono.com").replace(/\/$/, "");
+  const [insights, projects, studies] = await Promise.all([getInsights(), getProducts(), getCaseStudies()]);
   return [
-    ...staticRoutes.map((route) => ({
-      url: `${baseUrl}${route}`,
-      changeFrequency: route === "" ? ("monthly" as const) : ("yearly" as const),
-      priority: route === "" ? 1 : route === "/start-a-project" ? 0.9 : 0.8,
+    ...["", "/projects", "/work", "/studio", "/insights", "/about", "/studio/privacy-policy"].map((route) => ({
+      url: `${baseUrl}${route}`, changeFrequency: "monthly" as const, priority: route === "" ? 1 : 0.8,
     })),
-    ...insights.map(({ metadata }) => ({
-      url: `${baseUrl}/insights/${metadata.slug}`,
-      lastModified: new Date(metadata.updatedAt ?? metadata.publishedAt),
-      changeFrequency: "monthly" as const,
-      priority: 0.65,
+    ...insights.map(({ metadata: m }) => ({
+      url: `${baseUrl}/insights/${m.slug}`, lastModified: new Date(m.updatedAt ?? m.publishedAt),
+      changeFrequency: "monthly" as const, priority: 0.65,
     })),
-    ...projects.map(({ metadata }) => ({
-      url: `${baseUrl}/projects/${metadata.slug}`,
-      changeFrequency: "yearly" as const,
-      priority: 0.7,
-    })),
+    ...projects.map(({ metadata: m }) => ({ url: `${baseUrl}/projects/${m.slug}`, changeFrequency: "yearly" as const, priority: 0.7 })),
+    ...studies.map(({ metadata: m }) => ({ url: `${baseUrl}/work/${m.slug}`, changeFrequency: "yearly" as const, priority: 0.7 })),
   ];
 }
+

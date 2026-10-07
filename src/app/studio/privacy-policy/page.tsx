@@ -30,9 +30,9 @@ export default async function PrivacyPolicyPage() {
 
   return (
     <article className="page-shell">
-      <div className="mx-auto max-w-4xl">
+      <div className="reading-column">
         <p className="eyebrow">Lone Dream Studio</p>
-        <h1 className="mt-4 font-display text-4xl font-bold tracking-[-0.04em] sm:text-6xl">
+        <h1 className="display-title mt-4">
           {policy.metadata.title}
         </h1>
         <p className="mt-5 text-sm text-muted-foreground">
@@ -45,3 +45,4 @@ export default async function PrivacyPolicyPage() {
     </article>
   );
 }
+

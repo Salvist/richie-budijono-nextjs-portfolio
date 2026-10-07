@@ -39,6 +39,7 @@ export const productMetadataSchema = z
   .object({
     title: requiredText,
     summary: requiredText,
+    contribution: requiredText.optional(),
     status: z.enum(["active", "shipped", "experiment", "archived"]),
     platforms: z.array(requiredText).min(1),
     technologies: z.array(requiredText).min(1),
